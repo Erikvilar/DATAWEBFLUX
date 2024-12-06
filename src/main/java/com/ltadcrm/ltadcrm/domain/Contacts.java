@@ -25,10 +25,10 @@ import lombok.NoArgsConstructor;
 public class Contacts implements Serializable {
 
     @Column(name = "id_contact")
-    @JsonProperty("id")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long contactID;
     @Column(name = "email_contact")
     @JsonProperty("email")
     private String email;

@@ -18,31 +18,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "Items")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_items")
 @Data
-public class Items {
 
-    @Column(name = "id_items")
+@Entity(name = "InventoryItems")
+@Table(name = "tb_inventory_items")
+public class InventoryItems {
+
+    @Column(name = "id_inventory_items")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "code_item")
-    private String number;
-    @Column(name = "observation_item")
-    private String observation;
-    @Column(name = "pathImage_item")
+    @Column(name = "code_inventory_items")
+    private String code;
+    @Column(name = "especification_inventory_items")
+    private String especification;
+    @Column(name = "path_image_inventory_items")
     private String pathImage;
-    @Column(name = "sde_item")
+    @Column(name = "sde_inventory_items")
     private Long sde;
-    @Column(name = "orderOrigin_item")
+    @Column(name = "order_origin_inventory_items")
     private String order;
-    @Column(name = "status_item")
+    @Column(name = "status_inventory_items")
     private String status;
-    @Column(name = "nf_invoice_item")
+    @Column(name = "nf_invoice_inventory_items")
     private String nfInvoice;
-    @Column(name = "value_item")
+    @Column(name = "value_inventory_items")
     private Double value;
     @Column(name = "last_modify")
     private String lastModification;

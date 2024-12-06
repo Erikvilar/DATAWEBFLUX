@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.ltadcrm.ltadcrm.domain.Contacts;
 import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Details;
-import com.ltadcrm.ltadcrm.domain.Items;
+import com.ltadcrm.ltadcrm.domain.InventoryItems;
 import com.ltadcrm.ltadcrm.domain.Users;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
@@ -35,9 +35,9 @@ public class CreateAllIEntities {
     public ResponseEntity<String> create(UpdateDTO updateDTO) {
         try {
  
-            Items item = new Items();
-            item.setNumber(updateDTO.getItemsDTO().getNumber());
-            item.setObservation(updateDTO.getItemsDTO().getObservation());
+            InventoryItems item = new InventoryItems();
+            item.setCode(updateDTO.getItemsDTO().getCode());
+            item.setEspecification(updateDTO.getItemsDTO().get());
             item.setPathImage(updateDTO.getItemsDTO().getPathImage());
             item.setSde(updateDTO.getItemsDTO().getSde());
             item.setOrder(updateDTO.getItemsDTO().getOrder());

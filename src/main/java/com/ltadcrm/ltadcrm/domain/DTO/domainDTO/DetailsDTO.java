@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
+package com.ltadcrm.ltadcrm.domain.dto.domainDTO;
 
 import java.time.LocalDateTime;
 
@@ -14,34 +14,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DetailsDTO {
   
-  @JsonProperty("id_descricao")
+
+
+  
   private Long id;
-  @JsonProperty("marca_descricao")
   private String brand;
-  @JsonProperty("descricao_item")
   private String description;
-  @JsonProperty("localizacao_descricao")
-  private String local;
-  @JsonProperty("modelo_descricao")
+  private String location;
   private String model;
-  @JsonProperty("serie_descricao")
-  private String serial;
-  @JsonProperty("lastModify")
+  private String series;
   private String lastModification;
-  @JsonProperty("updateIn")
   private LocalDateTime updateIn;
 
-  public DetailsDTO(Details descriptions){
-    id = descriptions.getId();
-    brand = descriptions.getBrand();
-    description = descriptions.getDescription();
-    local = descriptions.getLocal();
-    model = descriptions.getModel();
-    serial = descriptions.getSerial();
-    lastModification = descriptions.getLastModification();
-    updateIn = LocalDateTime.now();
 
-
-  }
 
 }

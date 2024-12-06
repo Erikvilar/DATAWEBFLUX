@@ -4,8 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 import com.ltadcrm.ltadcrm.domain.Details;
-
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.DetailsDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.DetailsDTO;
 
 
 @Mapper(componentModel = "spring")

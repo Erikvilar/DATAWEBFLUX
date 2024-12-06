@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
+package com.ltadcrm.ltadcrm.domain.dto.domainDTO;
 
 
 
@@ -19,8 +19,6 @@ public class UpdateDTO {
     private CostCenterDTO costCenterDTO;
     private ContactsDTO contactsDTO;
     private LocalDateTime updateAt = LocalDateTime.now();
-    private String userLogged;
-
     
 
 

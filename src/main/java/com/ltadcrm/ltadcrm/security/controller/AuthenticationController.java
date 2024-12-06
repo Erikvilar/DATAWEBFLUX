@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ltadcrm.ltadcrm.domain.Account;
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.AuthenticationDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.RegisterDTO;
+import com.ltadcrm.ltadcrm.domain.dto.authentication.AuthenticationDTO;
+import com.ltadcrm.ltadcrm.domain.dto.authentication.RegisterDTO;
 import com.ltadcrm.ltadcrm.security.JWT.TokenService;
 import com.ltadcrm.ltadcrm.security.accountRepository.AccountRepository;
 
