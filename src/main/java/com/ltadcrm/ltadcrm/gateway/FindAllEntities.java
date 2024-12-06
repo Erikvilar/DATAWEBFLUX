@@ -22,17 +22,4 @@ public class FindAllEntities {
     private final ItemDetailsDTOConvertImpl convert;
  
 
-    public List<ItemDetailDTO> list() throws Exception {
-        try {
-
-            List<ItemDetailDTO> dtos = new ArrayList<>();
-            for (Tuple tuple : itemsRepository.findAllItemsDTOs()) {
-                ItemDetailDTO dto = convert.convert(tuple);
-                dtos.add(dto);
-            }
-            return dtos;
-        } catch (Exception e) {
-            throw new Exception("Current error in ItemService " + e);
-        }
-    }
 }

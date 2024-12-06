@@ -14,29 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ContactsDTO {
 
-  @JsonProperty("id_contato")
   private Long id;
-
-  @JsonProperty("email_contato")
-  private String email;
-
-  @JsonProperty("ocupacao_contato")
-  private String occupation;
-
-  @JsonProperty("telefone_contato")
-  private String phone;
-  @JsonProperty("lastModify")
+  private String contactEmail;
+  private String contactOccupation;
+  private String contactPhone;
   private String lastModification;
-  @JsonProperty("updateIn")
   private LocalDateTime updateIn;
-
-  public ContactsDTO(Contacts  contacts){
-    id = contacts.getId();
-    email = contacts.getEmail();
-    occupation = contacts.getOccupation();
-    phone = contacts.getPhone();
-    lastModification = contacts.getLastModification();
-    updateIn = LocalDateTime.now();
-  }
 
 }

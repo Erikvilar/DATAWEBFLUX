@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.ltadcrm.ltadcrm.domain.Items;
+import com.ltadcrm.ltadcrm.domain.InventoryItems;
 import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.events.Items.ItemUpdatedEvent;
 import com.ltadcrm.ltadcrm.gateway.mapper.ContactsMapper;

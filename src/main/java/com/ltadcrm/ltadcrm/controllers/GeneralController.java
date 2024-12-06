@@ -3,6 +3,7 @@ package com.ltadcrm.ltadcrm.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ltadcrm.ltadcrm.domain.InventoryItems;
 import com.ltadcrm.ltadcrm.domain.dto.authentication.RegisterDTO;
 import com.ltadcrm.ltadcrm.domain.dto.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UpdateDTO;
@@ -10,7 +11,7 @@ import com.ltadcrm.ltadcrm.gateway.CreateAllIEntities;
 import com.ltadcrm.ltadcrm.gateway.DeleteAllEntities;
 import com.ltadcrm.ltadcrm.gateway.FindAllEntities;
 import com.ltadcrm.ltadcrm.gateway.UpdateAllEntities;
-
+import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,14 +32,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequiredArgsConstructor
 public class GeneralController {
 
+
+    private final ItemsRepository itemsRepository;
+
     private final FindAllEntities findAllEntities;
     private final DeleteAllEntities deleteAllEntities;
     private final CreateAllIEntities createAllIEntities;
     private final UpdateAllEntities updateAllEntities;
 
     @GetMapping
-    public ResponseEntity<List<ItemDetailDTO>> showAllDTO() throws Exception {
-        return new ResponseEntity<>(findAllEntities.list(), HttpStatus.OK);
+    public ResponseEntity<List<InventoryItems>> showAllDTO() throws Exception {
+        return new ResponseEntity<>(itemsRepository.findAllInventoryItems(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
