@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
+package com.ltadcrm.ltadcrm.domain.dto.domainDTO;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailsDTO {
+  
+
+
   
   @JsonProperty("id_descricao")
   private Long id;

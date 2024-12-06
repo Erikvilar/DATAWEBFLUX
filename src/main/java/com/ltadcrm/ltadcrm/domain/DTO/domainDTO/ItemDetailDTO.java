@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
+package com.ltadcrm.ltadcrm.domain.dto.domainDTO;
 
 
 import java.time.LocalDateTime;

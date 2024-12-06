@@ -1,6 +1,6 @@
 package com.ltadcrm.ltadcrm.gateway.interfaces;
 
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.ItemDetailDTO;
 
 import jakarta.persistence.Tuple;
 

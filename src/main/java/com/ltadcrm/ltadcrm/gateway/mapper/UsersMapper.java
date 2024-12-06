@@ -4,8 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 import com.ltadcrm.ltadcrm.domain.Users;
-
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UsersDTO;
 
 @Mapper(componentModel = "spring")
 public interface UsersMapper {

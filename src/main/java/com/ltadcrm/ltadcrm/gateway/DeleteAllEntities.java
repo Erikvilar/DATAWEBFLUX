@@ -20,7 +20,7 @@ public class DeleteAllEntities {
 
         List<Items> items = itemsRepository.findAllById(id);
         try {
-            if (items.isEmpty()) {
+            if (!items.isEmpty()) {
                 itemsRepository.deleteAll(items);
             }
             return ResponseEntity.ok("Linha  foi deletada");

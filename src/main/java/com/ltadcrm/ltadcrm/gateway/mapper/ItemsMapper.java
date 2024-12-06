@@ -6,7 +6,7 @@ import org.mapstruct.MappingTarget;
 
 
 import com.ltadcrm.ltadcrm.domain.Items;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemsDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.ItemsDTO;
 @Mapper(componentModel = "spring")
 public interface ItemsMapper {
 

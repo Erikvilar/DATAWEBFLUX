@@ -15,7 +15,7 @@ import jakarta.persistence.Tuple;
 public interface ItemsRepository extends JpaRepository<Items, Long> {
   
 
-    @Query(value = "CALL GetAllItems()", nativeQuery = true)
+    @Query(value = "CALL GetAllItems", nativeQuery = true)
     List<Tuple>findAllItemsDTOs();
 
     Optional<Items> findAllById(Long id);

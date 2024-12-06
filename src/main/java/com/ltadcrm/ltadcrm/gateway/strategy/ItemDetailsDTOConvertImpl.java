@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.gateway.interfaces.ItemDetailsDTOConvert;
 
 import jakarta.persistence.Tuple;

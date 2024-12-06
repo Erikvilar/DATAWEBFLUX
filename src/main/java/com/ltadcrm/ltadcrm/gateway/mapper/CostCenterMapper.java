@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 import com.ltadcrm.ltadcrm.domain.CostCenter;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.CostCenterDTO;
 
 @Mapper(componentModel = "spring")
 public interface CostCenterMapper {

@@ -10,7 +10,7 @@ import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.Users;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;

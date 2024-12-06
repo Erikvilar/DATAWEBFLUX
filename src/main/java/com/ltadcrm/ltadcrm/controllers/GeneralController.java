@@ -3,9 +3,9 @@ package com.ltadcrm.ltadcrm.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.RegisterDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
+import com.ltadcrm.ltadcrm.domain.dto.authentication.RegisterDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.ItemDetailDTO;
+import com.ltadcrm.ltadcrm.domain.dto.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.gateway.CreateAllIEntities;
 import com.ltadcrm.ltadcrm.gateway.DeleteAllEntities;
 import com.ltadcrm.ltadcrm.gateway.FindAllEntities;
@@ -53,7 +53,7 @@ public class GeneralController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO, RegisterDTO registerDTO) {
+    public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
         return updateAllEntities.update(updateDTO);
 
     }
