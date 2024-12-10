@@ -39,6 +39,9 @@ public class ItemDetailDTO {
     @JsonProperty("codigo_item")
     private String code;
 
+    @JsonProperty("processoSEI")
+    private String processSEI;
+
     @JsonProperty("observacao_item")
     private String observation;
 
@@ -106,6 +109,21 @@ public class ItemDetailDTO {
     private String contactPhone;
     @JsonProperty("lastModify")
     private String lastModification;
+
+
+    //dados de ´´tb_receiving´
+    @JsonProperty("id_recebimento")
+    private Long receivingID;
+    @JsonProperty("termo")
+    private Long receivingCode;
+    @JsonProperty("lotação")
+    private String lotation;
+    @JsonProperty("local")
+    private String local;
+    @JsonProperty("empSIAFI")
+    private String empSiafi;
+    
     @JsonProperty("updateIn")
     private LocalDateTime updateIn; 
+
 }
