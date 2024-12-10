@@ -9,6 +9,7 @@ import com.ltadcrm.ltadcrm.domain.Contacts;
 import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
+import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.Users;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
@@ -41,6 +42,7 @@ public class CreateAllIEntities {
             item.setPathImage(updateDTO.getItemsDTO().getPathImage());
             item.setSde(updateDTO.getItemsDTO().getSde());
             item.setOrder(updateDTO.getItemsDTO().getOrder());
+            item.setProcessSEI(updateDTO.getItemsDTO().getProcessSEI());
             item.setStatus(updateDTO.getItemsDTO().getStatus());
             item.setNfInvoice(updateDTO.getItemsDTO().getNfInvoice());
             item.setValue(updateDTO.getItemsDTO().getValue());
@@ -73,10 +75,16 @@ public class CreateAllIEntities {
             contact.setOccupation(updateDTO.getContactsDTO().getOccupation());
             contact.setPhone(updateDTO.getContactsDTO().getPhone());
             contact.setLastModification(updateDTO.getContactsDTO().getLastModification());
-
+            
+            Receiving receiving = new Receiving();
+            receiving.setReceivingCode(updateDTO.getReceivingDTO().getReceivingCode());
+            receiving.setLocal(updateDTO.getReceivingDTO().getLocal());
+            receiving.setEmpSiafi(updateDTO.getReceivingDTO().getEmpSiafi());
+        
             item.setUsers(user);
             item.setDetails(description);
             item.setCostCenter(costCenter);
+            item.setReceiving(receiving);
 
             usersRepository.save(user);
             detailsRepository.save(description);

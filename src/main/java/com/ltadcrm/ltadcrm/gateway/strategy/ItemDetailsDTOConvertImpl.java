@@ -24,6 +24,7 @@ public class ItemDetailsDTOConvertImpl implements ItemDetailsDTOConvert {
                 tuple.get("id_item", Long.class),
                 tuple.get("nf_invoice_item", String.class),
                 tuple.get("codigo_item", String.class),
+                tuple.get("processSEI", String.class),
                 tuple.get("observacao_item", String.class),
                 tuple.get("caminho_imagem_item", String.class),
                 tuple.get("pedido_origem", String.class),
@@ -46,7 +47,13 @@ public class ItemDetailsDTOConvertImpl implements ItemDetailsDTOConvert {
                 tuple.get("ocupacao_contato", String.class),
                 tuple.get("telefone_contato", String.class),
                 tuple.get("lastModify", String.class),
+                tuple.get("id_recebimento", Long.class),
+                tuple.get("termo", Long.class),
+                tuple.get("lotação", String.class),
+                tuple.get("local", String.class),
+                tuple.get("empSIAFI", String.class),
                 updateIn
+
 
         );
     }
