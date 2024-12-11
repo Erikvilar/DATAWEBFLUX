@@ -3,14 +3,13 @@ package com.ltadcrm.ltadcrm.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.RegisterDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.gateway.CreateAllIEntities;
 import com.ltadcrm.ltadcrm.gateway.DeleteAllEntities;
 import com.ltadcrm.ltadcrm.gateway.FindAllEntities;
 import com.ltadcrm.ltadcrm.gateway.UpdateAllEntities;
-
+import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

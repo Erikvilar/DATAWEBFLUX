@@ -27,6 +27,9 @@ public class ItemsDTO{
     @JsonProperty("observacao_item")
     private String observation;
 
+    @JsonProperty("processoSEI")
+    private String processSEI;
+
     @JsonProperty("caminho_imagem_item")
     private String pathImage;
 

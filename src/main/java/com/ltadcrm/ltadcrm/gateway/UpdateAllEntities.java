@@ -20,7 +20,7 @@ import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
-import com.ltadcrm.ltadcrm.security.accountRepository.AccountRepository;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,6 +58,10 @@ public class UpdateAllEntities {
                         costCenterRepository.save(costCenterMapper.updateDomainFromDTO(
                                         costCenterRepository.findById(updateDTO.getCostCenterDTO().getId()).get(),
                                         updateDTO.getCostCenterDTO()));
+
+
+
+                                        
                         Items existingItem = itemsRepository.findById(updateDTO.getItemsDTO().getId()).get();
                    
                         ItemUpdatedEvent event = new ItemUpdatedEvent(

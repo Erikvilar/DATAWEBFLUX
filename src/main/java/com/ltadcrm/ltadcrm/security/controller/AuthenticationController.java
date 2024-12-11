@@ -3,11 +3,11 @@ package com.ltadcrm.ltadcrm.security.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ltadcrm.ltadcrm.domain.Account;
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.AuthenticationDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.authentication.RegisterDTO;
 import com.ltadcrm.ltadcrm.security.JWT.TokenService;
 import com.ltadcrm.ltadcrm.security.accountRepository.AccountRepository;
+import com.ltadcrm.ltadcrm.security.controller.authentication.AuthenticationDTO;
+import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
+import com.ltadcrm.ltadcrm.security.entity.Account;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
