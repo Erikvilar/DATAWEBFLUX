@@ -35,14 +35,19 @@ public class Account implements UserDetails {
     private String login;
 
     private String password;
+    
+    private String avatar;
 
     private AccountRoles role;
 
 
-    public Account (String login, String password, AccountRoles role){
+    public Account (String login, String password, String avatar, AccountRoles role){
         this.login=login;
         this.password=password;
+        this.avatar = avatar;
         this.role=role;
+       
+
     }
 
     @Override

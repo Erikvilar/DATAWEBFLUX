@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `ltadcrm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `ltadcrm` ;
+DROP DATABASE IF exists `ltadcrm`;
 USE `ltadcrm`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
@@ -89,7 +90,7 @@ INSERT INTO `tb_cost_center`(
 ('2025-12-07','CC001','2019-12-08','Tsdsa',NULL,'2024-11-14 15:35:14.760035');
 
 SELECT * FROM tb_cost_center;
-DROP TABLE IF EXISTS `tb_description`;
+DROP TABLE IF EXISTS `tb_details`;
 CREATE TABLE `tb_description` (
   `id_description` bigint NOT NULL AUTO_INCREMENT,
   `brand_description` varchar(255) DEFAULT NULL,
@@ -179,7 +180,8 @@ SELECT
 
     i.id_items AS id_item,
     i.nf_invoice_item AS nf_invoice_item,
-    i.code_item AS codigo_item,
+    i.patrimony AS codigo_item,
+    i.process_sei as processSEI,
     i.observation_item AS observacao_item,
     i.path_image_item AS caminho_imagem_item,
     i.order_origin_item AS pedido_origem,
@@ -189,12 +191,12 @@ SELECT
     i.last_modify AS lastModify,
     i.update_in AS updateIn,
 
-    d.id_details AS id_descricao,
-    d.brand_description AS marca_descricao,
-    d.description_description AS descricao_item,
-    d.local_description AS localizacao_descricao,
-    d.model_description AS modelo_descricao,
-    d.serie_description AS serie_descricao,
+    d.id_details  AS id_descricao,
+    d.brand_details AS marca_descricao,
+    d.details_details AS descricao_item,
+    d.local_details AS localizacao_descricao,
+    d.model_details AS modelo_descricao,
+    d.serial_details AS serie_descricao,
 
     c.id_cost_center AS id_centro_custo,
     c.end_date_cost_center AS data_fim_centro_custo,
@@ -205,7 +207,15 @@ SELECT
     co.id_contact AS id_contato,
     co.email_contact AS email_contato,
     co.occupation_contact AS ocupacao_contato,
-    co.phone_contact AS telefone_contato
+    co.phone_contact AS telefone_contato,
+    
+    re.receivingid AS id_recebimento,
+    re.emp_siafi AS empSIAFI,
+    re.local AS local,
+    re.lotation AS lotação,
+    re.receiving_code AS termo
+    
+    
 
 FROM 
     tb_items i
@@ -216,8 +226,9 @@ JOIN
 JOIN 
     tb_cost_center c ON i.id_cost_center = c.id_cost_center
 JOIN 
-    tb_contact co ON co.id_contact = i.id_users;
-
+    tb_contact co ON co.id_contact = i.id_users
+JOIN 
+    tb_receiving re ON i.receivingid = re.receivingid;
 END ;;
 DELIMITER ;
 call GetAllItems();
@@ -249,6 +260,7 @@ VALUES
     ('NF12347', 'ITEM003', 'MacBook Pro', '/images/items/item003.jpg', 'Pedido003', 8, 'Ativo', 8000.00, 3, 3, 3);  -- Item relacionado ao usuário 'Carlos Souza'
 END ;;
 DELIMITER ;
+select * from tb_items;
 
 DROP TABLE IF EXISTS `audit_log`;
 CREATE TABLE `audit_log` (
@@ -265,26 +277,54 @@ CREATE TABLE `audit_log` (
 
 
 -- --> Triggers()
-DELIMITER $
-CREATE TRIGGER handle_update_on_tb_description  AFTER UPDATE ON `tb_description`
-FOR EACH ROW
-BEGIN
-	IF NEW.description_description <> OLD.description_description THEN
-	INSERT INTO `audit_log`(
-	name_item_old,
-	name_item_new ,
-	email_user,
-	type_action 
-	) VALUES (
-    OLD.description_description ,
-    NEW.description_description,
-    'email@teste','UPDATE');	
-	END IF;
-    
-END $
-DELIMITER ;
 
-DROP TRIGGER handle_update_on_tb_items;
+ SELECT 
+    u.id_users AS id_usuario,
+    u.name_users AS nome_usuario,
+    u.type_users AS tipo_usuario,
+
+    i.id_items AS id_item,
+    i.nf_invoice_item AS nf_invoice_item,
+    i.code_item AS codigo_item,
+    i.observation_item AS observacao_item,
+    i.path_image_item AS caminho_imagem_item,
+    i.order_origin_item AS pedido_origem,
+    i.sde_item AS sde_item,
+    i.status_item AS status_item,
+    i.value_item AS valor_item,
+    i.last_modify AS lastModify,
+    i.update_in AS updateIn,
+
+    d.id_details  AS id_descricao,
+    d.brand_details AS marca_descricao,
+    d.details_details AS descricao_item,
+    d.local_details AS localizacao_descricao,
+    d.model_details AS modelo_descricao,
+    d.serial_details AS serie_descricao,
+
+    c.id_cost_center AS id_centro_custo,
+    c.end_date_cost_center AS data_fim_centro_custo,
+    c.identification_cost_center AS identificacao_centro_custo,
+    c.initial_date_cost_center AS data_inicio_centro_custo,
+    c.name_cost_center AS nome_centro_custo,
+
+    co.id_contact AS id_contato,
+    co.email_contact AS email_contato,
+    co.occupation_contact AS ocupacao_contato,
+    co.phone_contact AS telefone_contatos
+
+FROM 
+    tb_items i
+JOIN 
+    tb_users u ON i.id_users = u.id_users
+JOIN 
+    tb_details d ON i.id_details = d.id_details
+JOIN 
+    tb_cost_center c ON i.id_cost_center = c.id_cost_center
+JOIN 
+    tb_contact co ON co.id_contact = i.id_users;
+    
+DROP TRIGGER handle_update_on_tb_description;
 
 SHOW TRIGGERS;
 

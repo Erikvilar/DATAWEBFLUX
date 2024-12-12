@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.events.Items.ItemUpdatedEvent;
@@ -20,7 +19,6 @@ import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,7 +40,13 @@ public class UpdateAllEntities {
 
         @Transactional
         public ResponseEntity<String> update(UpdateDTO updateDTO) {
+                /*
+                 * After update this line catch old value from Items -> details
+                 */   Items oldObject= itemsRepository.findById(updateDTO.getItemsDTO().getId()).get();
+                        final String oldValueFromObject = oldObject.getDetails().getDescription();
+                        
                 try {
+
                         itemsRepository.save(itemsMapper.updateDomainFromDTO(
                                         itemsRepository.findById(updateDTO.getItemsDTO().getId()).get(),
                                         updateDTO.getItemsDTO()));
@@ -59,21 +63,23 @@ public class UpdateAllEntities {
                                         costCenterRepository.findById(updateDTO.getCostCenterDTO().getId()).get(),
                                         updateDTO.getCostCenterDTO()));
 
-
-
-                                        
                         Items existingItem = itemsRepository.findById(updateDTO.getItemsDTO().getId()).get();
-                   
+
+                        /*
+                        *Log register 
+                        */
                         ItemUpdatedEvent event = new ItemUpdatedEvent(
                                         existingItem.getId(),
                                         existingItem.getLastModification(),
                                         existingItem.getValue(),
-                                        existingItem.getDetails().getDescription());
+                                        existingItem.getDetails().getDescription(),
+                                        oldValueFromObject);
                         eventPublisher.publishEvent(event);
                         return ResponseEntity.ok("Dados salvos");
+
                 } catch (Exception e) {
                         return ResponseEntity.badRequest().body("Error " + e);
                 }
         }
-   
+
 }

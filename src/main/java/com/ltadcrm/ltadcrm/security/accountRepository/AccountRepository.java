@@ -9,5 +9,7 @@ import com.ltadcrm.ltadcrm.security.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>{
    UserDetails findByLogin(String login);
+   Account findAccountByLogin(String login);
+
   
 }

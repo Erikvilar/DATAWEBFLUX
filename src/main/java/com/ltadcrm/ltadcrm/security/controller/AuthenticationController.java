@@ -7,10 +7,12 @@ import com.ltadcrm.ltadcrm.security.JWT.TokenService;
 import com.ltadcrm.ltadcrm.security.accountRepository.AccountRepository;
 import com.ltadcrm.ltadcrm.security.controller.authentication.AuthenticationDTO;
 import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
+
+import com.ltadcrm.ltadcrm.security.controller.authentication.ToFrontDTO;
 import com.ltadcrm.ltadcrm.security.entity.Account;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
 
+
+@Slf4j
 @RestController
 @RequestMapping("auth")
 public class AuthenticationController {
@@ -38,13 +41,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid AuthenticationDTO data, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data, Account account) {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
             var auth = authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generatedToken((Account) auth.getPrincipal());
-        
-            return ResponseEntity.ok(token);
+            var login = accountRepository.findAccountByLogin(data.login());
+            var userLogged = new ToFrontDTO(login.getAvatar(),login.getLogin(), token);
+            
+            log.info("Usuario {} fez login no sistema ", data.login());
+            return ResponseEntity.ok(userLogged);
 
         } catch (Exception e) {
             return new ResponseEntity<>("erro >> " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -58,20 +64,12 @@ public class AuthenticationController {
             return new ResponseEntity<>("Usuário já existente localizado", HttpStatus.BAD_REQUEST);
 
         String encrypt = new BCryptPasswordEncoder().encode(register.password());
-        Account user = new Account(register.login(), encrypt, register.role());
+        Account user = new Account(register.login(), encrypt,register.avatar(), register.role());
 
         this.accountRepository.save(user);
         return new ResponseEntity<>("Usuario cadastrado com sucesso no sistema", HttpStatus.OK);
 
     }
 
-    @GetMapping("/teste")
-    public ResponseEntity<String> getMethodName() {
-        try {
-            return new ResponseEntity<>("Teste de login", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Nao autorizado " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-    }
+    
 }
