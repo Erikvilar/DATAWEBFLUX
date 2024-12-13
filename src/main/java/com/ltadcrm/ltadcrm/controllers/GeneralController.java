@@ -39,7 +39,7 @@ public class GeneralController {
     public ResponseEntity<List<ItemDetailDTO>> showAllDTO() throws Exception {
         return new ResponseEntity<>(findAllEntities.list(), HttpStatus.OK);
     }
-
+    
     @PostMapping("/create")
     public ResponseEntity<String> saveMethod(@RequestBody UpdateDTO updateDTO) {
         return createAllIEntities.create(updateDTO);

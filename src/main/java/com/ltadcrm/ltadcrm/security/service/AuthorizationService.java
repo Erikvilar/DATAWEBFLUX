@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ltadcrm.ltadcrm.security.accountRepository.AccountRepository;
+import com.ltadcrm.ltadcrm.security.SecurityRepository.AccountRepository;
 
 @Service
 public class AuthorizationService implements UserDetailsService {
