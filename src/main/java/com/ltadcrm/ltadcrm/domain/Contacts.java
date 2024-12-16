@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 public class Contacts implements Serializable {
 
     @Column(name = "id_contact")
-    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +40,7 @@ public class Contacts implements Serializable {
     @Column(name = "last_modify")
     private String lastModification;
     @Column(name = "update_in")
+    
     @UpdateTimestamp
     private LocalDateTime updateIn;
 

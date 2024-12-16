@@ -280,7 +280,8 @@ CREATE TABLE `audit_log` (
 
  SELECT 
     u.id_users AS id_usuario,
-    u.name_users AS nome_usuario,
+    u.name_users AS nome_usuari
+    o,
     u.type_users AS tipo_usuario,
 
     i.id_items AS id_item,

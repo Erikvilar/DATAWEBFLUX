@@ -25,6 +25,7 @@ public class ContactsDTO {
 
   @JsonProperty("telefone_contato")
   private String phone;
+  
   @JsonProperty("lastModify")
   private String lastModification;
   @JsonProperty("updateIn")
