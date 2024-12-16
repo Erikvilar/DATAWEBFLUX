@@ -1,5 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `ltadcrm` ;
 DROP DATABASE IF exists `ltadcrm`;
+DROP TABLE audit_log;
 USE `ltadcrm`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
@@ -207,6 +208,7 @@ SELECT
     co.id_contact AS id_contato,
     co.email_contact AS email_contato,
     co.occupation_contact AS ocupacao_contato,
+    co.responsible_general as responsavel_geral,
     co.phone_contact AS telefone_contato,
     
     re.receivingid AS id_recebimento,
@@ -280,8 +282,7 @@ CREATE TABLE `audit_log` (
 
  SELECT 
     u.id_users AS id_usuario,
-    u.name_users AS nome_usuari
-    o,
+    u.name_users AS nome_usuario,
     u.type_users AS tipo_usuario,
 
     i.id_items AS id_item,
@@ -331,3 +332,10 @@ SHOW TRIGGERS;
 
 SELECT * FROM audit_log;
 SELECT * FROM tb_description;
+
+-- SYSTEM CONF
+SHOW VARIABLES LIKE 'log_error';
+SHOW VARIABLES LIKE 'datadir';
+
+
+show engines;
