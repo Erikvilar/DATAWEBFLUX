@@ -49,9 +49,15 @@ public class CreateAllIEntities {
             itemsMapper.updateDomainFromDTO(item, updateDTO.getItemsDTO());
             itemsRepository.save(item); 
 
+
+            Contacts contacts =  new Contacts();
+            contactsMapper.updateDomainFromDTO(contacts, updateDTO.getContactsDTO());
+            contactsRepository.save(contacts);
+
             Users user = new Users(); 
             usersMapper.updateDomainFromDTO(user, updateDTO.getUsersDTO());
             item.setUsers(user);
+            user.setContacts(contacts);
             usersRepository.save(user); 
 
             Details details = new Details();
@@ -59,9 +65,7 @@ public class CreateAllIEntities {
             item.setDetails(details);
             detailsRepository.save(details); 
 
-            Contacts contacts =  new Contacts();
-            contactsMapper.updateDomainFromDTO(contacts, updateDTO.getContactsDTO());
-            contactsRepository.save(contacts);
+      
 
             CostCenter costCenter = new CostCenter();
             costCenterMapper.updateDomainFromDTO(costCenter, updateDTO.getCostCenterDTO());

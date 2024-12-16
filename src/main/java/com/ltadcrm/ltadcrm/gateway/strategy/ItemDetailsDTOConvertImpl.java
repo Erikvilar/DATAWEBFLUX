@@ -44,6 +44,7 @@ public class ItemDetailsDTOConvertImpl implements ItemDetailsDTOConvert {
                 tuple.get("data_fim_centro_custo", Date.class),
                 tuple.get("id_contato", Long.class),
                 tuple.get("email_contato", String.class),
+                tuple.get("responsavel_geral", String.class),
                 tuple.get("ocupacao_contato", String.class),
                 tuple.get("telefone_contato", String.class),
                 tuple.get("lastModify", String.class),

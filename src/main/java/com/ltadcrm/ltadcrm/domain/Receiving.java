@@ -22,7 +22,7 @@ public class Receiving {
     private Long receivingCode;
     private String lotation;
     private String local;
-    private String empSiafi;
+    private String empSIAFI;
 
 
 

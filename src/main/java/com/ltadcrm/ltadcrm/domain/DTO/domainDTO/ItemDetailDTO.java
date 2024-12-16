@@ -102,11 +102,15 @@ public class ItemDetailDTO {
     @JsonProperty("email_contato")
     private String contactEmail;
 
+    @JsonProperty("responsavel_geral")
+    private String generalResponsible;
+
     @JsonProperty("ocupacao_contato")
     private String contactOccupation;
 
     @JsonProperty("telefone_contato")
     private String contactPhone;
+
     @JsonProperty("lastModify")
     private String lastModification;
 

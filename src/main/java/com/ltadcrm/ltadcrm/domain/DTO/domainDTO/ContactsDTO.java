@@ -25,6 +25,9 @@ public class ContactsDTO {
 
   @JsonProperty("telefone_contato")
   private String phone;
+
+  @JsonProperty("responsavel_geral")
+  private String responsibleGeneral;
   
   @JsonProperty("lastModify")
   private String lastModification;
@@ -34,6 +37,7 @@ public class ContactsDTO {
   public ContactsDTO(Contacts  contacts){
     id = contacts.getId();
     email = contacts.getEmail();
+   responsibleGeneral = contacts.getResponsibleGeneral();
     occupation = contacts.getOccupation();
     phone = contacts.getPhone();
     lastModification = contacts.getLastModification();

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ public class UsersDTO {
         private String userName;
         @JsonProperty("tipo_usuario")
         private String userType;
-        @JsonProperty("lastModify")
-        private String lastModification;
-        @JsonProperty("updateIn")
-        private LocalDateTime updateIn;
+      
+
+   
+
+
+
 
       
 }

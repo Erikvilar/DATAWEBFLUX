@@ -1,6 +1,6 @@
 package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -19,8 +19,7 @@ public class ReceivingDTO {
     private String lotation;
     @JsonProperty("local")
     private String local;
-    @JsonIgnore
     @JsonProperty("empSIAFI")
-    private String empSiafi;
+    private String empSIAFI;
     
 }
