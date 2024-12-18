@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateAllEntities {
+public class UpdatedMethod {
 
         private final ContactsMapper contactsMapper;
         private final UsersMapper usersMapper;

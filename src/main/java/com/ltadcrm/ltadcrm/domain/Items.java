@@ -1,4 +1,5 @@
 package com.ltadcrm.ltadcrm.domain;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "tb_items")
 @Data
-public class Items {
+public class Items implements Serializable{
 
    
     @Column(name = "id_items")

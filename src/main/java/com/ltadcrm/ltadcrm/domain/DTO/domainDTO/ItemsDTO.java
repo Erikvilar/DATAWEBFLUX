@@ -15,6 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemsDTO{
 
+
+
     @JsonProperty("id_item")
     private Long id;
 
@@ -50,6 +52,7 @@ public class ItemsDTO{
 
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
+
 
 
 

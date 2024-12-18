@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteAllEntities {
+public class DeleteMethod {
 
     private final ItemsRepository itemsRepository;
     

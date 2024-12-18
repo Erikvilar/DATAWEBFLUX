@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CreateAllIEntities {
+public class CreateMethod {
 
     private final ItemsRepository itemsRepository;
     private final UsersRepository usersRepository;

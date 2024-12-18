@@ -1,5 +1,6 @@
 package com.ltadcrm.ltadcrm.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "tb_details")
 @Data
-public class Details {
+public class Details implements Serializable{
   
     @Column(name = "id_details")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

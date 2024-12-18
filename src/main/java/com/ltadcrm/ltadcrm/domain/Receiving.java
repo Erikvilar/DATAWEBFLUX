@@ -1,5 +1,7 @@
 package com.ltadcrm.ltadcrm.domain;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_receiving")
-public class Receiving {
+public class Receiving implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

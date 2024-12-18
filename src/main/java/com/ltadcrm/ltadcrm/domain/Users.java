@@ -1,8 +1,8 @@
 package com.ltadcrm.ltadcrm.domain;
 
-import java.time.LocalDateTime;
 
-import org.hibernate.annotations.UpdateTimestamp;
+
+import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Table(name="tb_users")
-public class Users {
+public class Users implements Serializable{
 
     @Column(name= "id_users")
     @JsonProperty("id_usuario")
