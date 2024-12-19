@@ -12,6 +12,7 @@ import com.ltadcrm.ltadcrm.gateway.CreateMethod;
 import com.ltadcrm.ltadcrm.gateway.DeleteMethod;
 import com.ltadcrm.ltadcrm.gateway.ReadMethod;
 import com.ltadcrm.ltadcrm.gateway.UpdatedMethod;
+import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
 
 import jakarta.validation.Valid;
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RequestMapping("general")
 @RestController
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class GeneralController {
     public ResponseEntity<List<ItemDetailDTO>> showAllDTO() throws Exception {
         return new ResponseEntity<>(readMethod.list(), HttpStatus.OK);
     }
-    
+
     @PostMapping("/create")
     public ResponseEntity<String> saveMethod(@RequestBody UpdateDTO updateDTO) {
         return createMethod.create(updateDTO);
@@ -61,9 +61,11 @@ public class GeneralController {
         return updateMethod.update(updateDTO);
 
     }
+
     @GetMapping("/costcenter/{name}")
-    public ResponseEntity<List<CostCenterByNameDTO>> getMethodName(@PathVariable("name") String name) throws Exception {
+    public ResponseEntity<ListWithTotalValues<CostCenterByNameDTO>> getMethodName(@PathVariable("name") String name)
+            throws Exception {
         return new ResponseEntity<>(readMethod.readItemsByCostCenter(name), HttpStatus.OK);
     }
-    
+
 }

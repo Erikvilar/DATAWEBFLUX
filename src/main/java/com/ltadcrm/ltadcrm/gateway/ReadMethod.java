@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
+import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.gateway.strategy.ItemDetailsDTOConvertImpl;
 
 import jakarta.persistence.Tuple;
@@ -40,15 +40,16 @@ public class ReadMethod {
         }
     }
 
-    public List<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {
+    public ListWithTotalValues<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {
         try {
             List<Items> items = itemsRepository.findByCostCenterName(name);
-
-            return items.stream()
-                    .map(item -> new CostCenterByNameDTO(item.getId(), item.getNumber(), item.getCostCenter().getName(),
-                            item.getCostCenter().getIdentification(), item.getDetails().getDescription(),
-                            item.getNfInvoice()))
+            List<CostCenterByNameDTO> costCenterByNameDTOs = items.stream()
+                    .map(CostCenterByNameDTO::fromItem)
                     .collect(Collectors.toList());
+            Double totalValue = costCenterByNameDTOs.stream()
+                    .mapToDouble(CostCenterByNameDTO::getValue)
+                    .sum();
+            return new ListWithTotalValues<>(costCenterByNameDTOs, totalValue);
         } catch (Exception e) {
             throw new Exception("Ocorreu um erro ao tentar retornar projetos: " + e);
         }
