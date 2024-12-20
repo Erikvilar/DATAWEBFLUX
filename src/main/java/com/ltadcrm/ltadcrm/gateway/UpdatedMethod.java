@@ -1,7 +1,9 @@
 
 package com.ltadcrm.ltadcrm.gateway;
 
+import org.hibernate.annotations.OptimisticLock;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
 
+import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -39,31 +42,32 @@ public class UpdatedMethod {
         private final ApplicationEventPublisher eventPublisher;
 
         @Transactional
+
         public ResponseEntity<String> update(UpdateDTO updateDTO) {
                 /*
                  * After update this line catch old value from Items -> details
-                 */   Items oldObject= itemsRepository.findById(updateDTO.getItemsDTO().getId()).get();
+                 */   Items oldObject= itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId()).get();
                         final String oldValueFromObject = oldObject.getDetails().getDescription();
                         
                 try {
 
                         itemsRepository.save(itemsMapper.updateDomainFromDTO(
-                                        itemsRepository.findById(updateDTO.getItemsDTO().getId()).get(),
+                                        itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId()).get(),
                                         updateDTO.getItemsDTO()));
                         usersRepository.save(usersMapper.updateDomainFromDTO(
-                                        usersRepository.findById(updateDTO.getContactsDTO().getId()).get(),
+                                        usersRepository.findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId()).get(),
                                         updateDTO.getUsersDTO()));
                         detailsRepository.save(detailsMapper.updateDomainFromDTO(
                                         detailsRepository.findById(updateDTO.getDetailsDTO().getId()).get(),
                                         updateDTO.getDetailsDTO()));
                         contactsRepository.save(contactsMapper.updateDomainFromDTO(
-                                        contactsRepository.findById(updateDTO.getContactsDTO().getId()).get(),
+                                        contactsRepository.findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId()).get(),
                                         updateDTO.getContactsDTO()));
                         costCenterRepository.save(costCenterMapper.updateDomainFromDTO(
-                                        costCenterRepository.findById(updateDTO.getCostCenterDTO().getId()).get(),
+                                        costCenterRepository.findByIdWithPessimisticLock(updateDTO.getCostCenterDTO().getId()).get(),
                                         updateDTO.getCostCenterDTO()));
 
-                        Items existingItem = itemsRepository.findById(updateDTO.getItemsDTO().getId()).get();
+                        Items existingItem = itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId()).get();
 
                         /*
                         *Log register 

@@ -26,37 +26,37 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Entity(name="CostCenter")
+@Entity(name = "CostCenter")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_costCenter")
-public class CostCenter implements Serializable{
+public class CostCenter implements Serializable {
 
-    @Column(name= "id_cost_center")
-    @JsonProperty("id")
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name= "name_costCenter")
-    @JsonProperty("nome")
-    private String name;
-    @Column(name= "identification_costCenter")
-    @JsonProperty("identificação")
-    private String identification;
-    @Column(name= "initial_date_costCenter")
-    @JsonProperty("data de inicio")
-    private Date initialDate;
-    @Column(name= "end_date_costCenter")
-    @JsonProperty("data de fim")
-    private Date endDate;
-     @Column(name = "last_modify")
-    private String lastModification;
-    @Column(name = "update_in")
-    @UpdateTimestamp
-    private LocalDateTime updateIn;
+  @Column(name = "id_cost_center")
+  @JsonProperty("id")
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @Column(name = "name_costCenter")
+  @JsonProperty("nome")
+  private String name;
+  @Column(name = "identification_costCenter")
+  @JsonProperty("identificação")
+  private String identification;
+  @Column(name = "initial_date_costCenter")
+  @JsonProperty("data de inicio")
+  private Date initialDate;
+  @Column(name = "end_date_costCenter")
+  @JsonProperty("data de fim")
+  private Date endDate;
+  @Column(name = "last_modify")
+  private String lastModification;
+  @Column(name = "update_in")
+  @UpdateTimestamp
+  private LocalDateTime updateIn;
 
-    @OneToMany(mappedBy = "costCenter")
+  @OneToMany(mappedBy = "costCenter")
   @Fetch(FetchMode.SUBSELECT)
-    private List<Items> items;
+  private List<Items> items;
 }
