@@ -1,12 +1,13 @@
 
 package com.ltadcrm.ltadcrm.gateway;
 
-import org.hibernate.annotations.OptimisticLock;
+
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.jpa.repository.Lock;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
@@ -21,8 +22,6 @@ import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
-
-import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,6 +39,8 @@ public class UpdatedMethod {
         private final DetailsRepository detailsRepository;
         private final UsersRepository usersRepository;
         private final ApplicationEventPublisher eventPublisher;
+      
+    
 
         @Transactional
 
@@ -79,6 +80,7 @@ public class UpdatedMethod {
                                         existingItem.getDetails().getDescription(),
                                         oldValueFromObject);
                         eventPublisher.publishEvent(event);
+                        
                         return ResponseEntity.ok("Dados salvos");
 
                 } catch (Exception e) {
