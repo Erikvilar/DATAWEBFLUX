@@ -17,6 +17,7 @@ import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
+@Slf4j
 @RequestMapping("general")
 @RestController
 @RequiredArgsConstructor
@@ -58,7 +59,8 @@ public class GeneralController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO, RegisterDTO registerDTO) {
+    public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
+        log.info("{}",updateDTO.getClass());
         return updateMethod.update(updateDTO);
 
     }
