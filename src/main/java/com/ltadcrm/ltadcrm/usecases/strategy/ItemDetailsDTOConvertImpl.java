@@ -1,11 +1,11 @@
-package com.ltadcrm.ltadcrm.gateway.strategy;
+package com.ltadcrm.ltadcrm.usecases.strategy;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
-import com.ltadcrm.ltadcrm.gateway.interfaces.ItemDetailsDTOConvert;
+import com.ltadcrm.ltadcrm.usecases.interfaces.ItemDetailsDTOConvert;
 
 import jakarta.persistence.Tuple;
 import org.springframework.stereotype.Service;
@@ -54,19 +54,14 @@ public class ItemDetailsDTOConvertImpl implements ItemDetailsDTOConvert {
                 tuple.get("local", String.class),
                 tuple.get("empSIAFI", String.class),
                 updateIn
-
-
         );
     }
 
     private LocalDateTime extractUpdateIn(Tuple tuple) {
-
         Object updateInObj = tuple.get("updateIn");
-        if (updateInObj instanceof Timestamp) {
-            Timestamp updateInTimestamp = (Timestamp) updateInObj;
+        if (updateInObj instanceof Timestamp updateInTimestamp) {
             return updateInTimestamp.toLocalDateTime();
         }
         return null;
-
     }
 }

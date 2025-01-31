@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.gateway;
+package com.ltadcrm.ltadcrm.usecases;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,18 +10,18 @@ import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.Users;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
-import com.ltadcrm.ltadcrm.gateway.mapper.ContactsMapper;
-import com.ltadcrm.ltadcrm.gateway.mapper.CostCenterMapper;
-import com.ltadcrm.ltadcrm.gateway.mapper.DetailsMapper;
-import com.ltadcrm.ltadcrm.gateway.mapper.ItemsMapper;
-import com.ltadcrm.ltadcrm.gateway.mapper.ReceivingMapper;
-import com.ltadcrm.ltadcrm.gateway.mapper.UsersMapper;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.ReceivingRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
+import com.ltadcrm.ltadcrm.usecases.mapper.ContactsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.CostCenterMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.DetailsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.ItemsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
 import lombok.RequiredArgsConstructor;
 

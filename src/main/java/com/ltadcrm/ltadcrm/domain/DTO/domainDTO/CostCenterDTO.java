@@ -3,6 +3,9 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ltadcrm.ltadcrm.domain.CostCenter;
 
@@ -31,9 +34,11 @@ public class CostCenterDTO {
   @JsonProperty("lastModify")
   private String lastModification;
   @JsonProperty("updateIn")
+  @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
   private LocalDateTime updateIn;
 
-  public CostCenterDTO(CostCenter costCenter){
+  public CostCenterDTO(CostCenter costCenter) {
     id = costCenter.getId();
     name = costCenter.getName();
     identification = costCenter.getIdentification();

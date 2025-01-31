@@ -1,8 +1,10 @@
 package com.ltadcrm.ltadcrm.events.Items;
 
+
 import lombok.Data;
 
 @Data
+
 public class ItemUpdatedEvent {
     private Long itemId;
     private String user;

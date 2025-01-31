@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
 
-   private final TokenService tokenService;
+    private final TokenService tokenService;
     private final AccountRepository accountRepository;
 
     @Override

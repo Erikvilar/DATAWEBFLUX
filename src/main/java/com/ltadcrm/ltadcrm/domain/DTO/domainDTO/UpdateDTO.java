@@ -19,7 +19,6 @@ public class UpdateDTO {
     private CostCenterDTO costCenterDTO;
     private ContactsDTO contactsDTO;
     private ReceivingDTO receivingDTO;
-    private LocalDateTime updateAt = LocalDateTime.now();
     private String userLogged;
 
     

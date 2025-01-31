@@ -8,10 +8,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
-import com.ltadcrm.ltadcrm.security.entity.Account;
+
 
 import lombok.extern.slf4j.Slf4j;
 

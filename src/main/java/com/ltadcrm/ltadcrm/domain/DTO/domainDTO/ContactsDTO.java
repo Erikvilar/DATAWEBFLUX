@@ -2,6 +2,9 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ltadcrm.ltadcrm.domain.Contacts;
 
@@ -28,16 +31,18 @@ public class ContactsDTO {
 
   @JsonProperty("responsavel_geral")
   private String responsibleGeneral;
-  
+
   @JsonProperty("lastModify")
   private String lastModification;
   @JsonProperty("updateIn")
+  @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
   private LocalDateTime updateIn;
 
-  public ContactsDTO(Contacts  contacts){
+  public ContactsDTO(Contacts contacts) {
     id = contacts.getId();
     email = contacts.getEmail();
-   responsibleGeneral = contacts.getResponsibleGeneral();
+    responsibleGeneral = contacts.getResponsibleGeneral();
     occupation = contacts.getOccupation();
     phone = contacts.getPhone();
     lastModification = contacts.getLastModification();

@@ -9,17 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import com.ltadcrm.ltadcrm.domain.Users;
 
-
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Optional<Users> findAllById(Long id);
 
-  
     @Query(value = """
-            select u.* 
+            select u.*
             from tb_users
-             u where u.id_users = :id 
-             """, nativeQuery= true)
+             u where u.id_users = :id
+             """, nativeQuery = true)
     Optional<Users> findByIdWithPessimisticLock(@Param("id") Long id);
 }

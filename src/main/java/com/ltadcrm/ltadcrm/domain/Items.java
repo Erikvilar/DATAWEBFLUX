@@ -3,8 +3,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,7 +37,7 @@ public class Items implements Serializable{
     private String observation;
 
     @Column(name = "pathImage_item")
-    private String pathImage;
+    private  String pathImage;
 
     @Column(name = "sde_item")
     private Long sde;
@@ -63,7 +61,6 @@ public class Items implements Serializable{
     private String lastModification;
 
     @Column(name = "update_in")
-    @UpdateTimestamp
     private LocalDateTime updateIn;
     /*
      * @Definindo relacionamentos para a a tabela items(Patrimonios)

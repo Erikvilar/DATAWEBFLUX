@@ -1,11 +1,9 @@
-package com.ltadcrm.ltadcrm.gateway.mapper;
+package com.ltadcrm.ltadcrm.usecases.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 import com.ltadcrm.ltadcrm.domain.CostCenter;
-import com.ltadcrm.ltadcrm.domain.Items;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
 
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.gateway;
+package com.ltadcrm.ltadcrm.usecases;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
-import com.ltadcrm.ltadcrm.gateway.strategy.ItemDetailsDTOConvertImpl;
+import com.ltadcrm.ltadcrm.usecases.strategy.ItemDetailsDTOConvertImpl;
 
 import jakarta.persistence.Tuple;
 import lombok.RequiredArgsConstructor;

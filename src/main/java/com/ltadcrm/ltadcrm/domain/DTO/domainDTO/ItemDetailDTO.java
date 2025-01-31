@@ -4,8 +4,9 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -128,6 +129,8 @@ public class ItemDetailDTO {
     private String empSiafi;
     
     @JsonProperty("updateIn")
-    private LocalDateTime updateIn; 
+    private LocalDateTime updateIn;
+
+   
 
 }

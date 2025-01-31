@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.gateway;
+package com.ltadcrm.ltadcrm.usecases;
 
 import java.util.List;
 

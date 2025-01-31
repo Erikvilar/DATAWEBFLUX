@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.gateway.interfaces;
+package com.ltadcrm.ltadcrm.usecases.interfaces;
 
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 

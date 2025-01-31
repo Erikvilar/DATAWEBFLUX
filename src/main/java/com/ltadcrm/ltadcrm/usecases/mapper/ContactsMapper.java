@@ -1,4 +1,4 @@
-package com.ltadcrm.ltadcrm.gateway.mapper;
+package com.ltadcrm.ltadcrm.usecases.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

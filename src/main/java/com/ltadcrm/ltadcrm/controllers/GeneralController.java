@@ -3,17 +3,16 @@ package com.ltadcrm.ltadcrm.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
-
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ResponsibleDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
-import com.ltadcrm.ltadcrm.gateway.CreateMethod;
-import com.ltadcrm.ltadcrm.gateway.DeleteMethod;
-import com.ltadcrm.ltadcrm.gateway.ReadMethod;
-import com.ltadcrm.ltadcrm.gateway.UpdatedMethod;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
-import com.ltadcrm.ltadcrm.security.controller.authentication.RegisterDTO;
+import com.ltadcrm.ltadcrm.usecases.CreateMethod;
+import com.ltadcrm.ltadcrm.usecases.DeleteMethod;
+import com.ltadcrm.ltadcrm.usecases.ReadMethod;
+import com.ltadcrm.ltadcrm.usecases.RegisterResponsibles;
+import com.ltadcrm.ltadcrm.usecases.UpdatedMethod;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +39,7 @@ public class GeneralController {
     private final DeleteMethod deleteMethod;
     private final CreateMethod createMethod;
     private final UpdatedMethod updateMethod;
+   private final RegisterResponsibles registerResponsibles;
 
     @GetMapping
     public ResponseEntity<List<ItemDetailDTO>> showAllDTO() throws Exception {
@@ -53,22 +52,26 @@ public class GeneralController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteItem(@PathVariable("id") List<Long> id) {
+    public ResponseEntity<String> deleteItem(@PathVariable List<Long> id) {
         return deleteMethod.deleteItem(id);
 
     }
 
     @PutMapping("/update")
     public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
-        log.info("{}",updateDTO.getClass());
+        log.info("{}", updateDTO.getClass());
         return updateMethod.update(updateDTO);
 
     }
 
     @GetMapping("/costcenter/{name}")
-    public ResponseEntity<ListWithTotalValues<CostCenterByNameDTO>> getMethodName(@PathVariable("name") String name)
-            throws Exception {
+    public ResponseEntity<ListWithTotalValues<CostCenterByNameDTO>> getMethodName(@PathVariable String name) throws Exception {
         return new ResponseEntity<>(readMethod.readItemsByCostCenter(name), HttpStatus.OK);
+    }
+
+    @PostMapping("/responsible")
+    public ResponseEntity<ResponsibleDTO> registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
+        return new ResponseEntity<>(registerResponsibles.register(responsibleDTO), HttpStatus.OK);
     }
 
 }
