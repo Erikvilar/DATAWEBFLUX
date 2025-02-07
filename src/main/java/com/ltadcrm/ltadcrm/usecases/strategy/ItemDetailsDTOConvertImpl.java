@@ -51,7 +51,9 @@ public class ItemDetailsDTOConvertImpl implements ItemDetailsDTOConvert {
                 tuple.get("id_recebimento", Long.class),
                 tuple.get("termo", Long.class),
                 tuple.get("lotação", String.class),
-                tuple.get("local", String.class),
+                tuple.get("fornecedor", String.class),
+                tuple.get("pedidoPDF", String.class),
+                tuple.get("termoPDF", String.class),
                 tuple.get("empSIAFI", String.class),
                 updateIn
         );

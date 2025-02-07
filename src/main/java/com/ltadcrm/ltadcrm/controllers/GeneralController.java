@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Slf4j
 @RequestMapping("general")
@@ -73,5 +75,15 @@ public class GeneralController {
     public ResponseEntity<ResponsibleDTO> registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
         return new ResponseEntity<>(registerResponsibles.register(responsibleDTO), HttpStatus.OK);
     }
+    @GetMapping("/responsible")
+    public ResponseEntity<List<ResponsibleDTO>> getAllResponsibles() {
+        return new ResponseEntity<>(registerResponsibles.getResponsible(), HttpStatus.OK);
+    }
+    @DeleteMapping("/responsible/{id}")
+    public ResponseEntity<String> deleteSomeResponsible(@PathVariable Long id){
+       return  new ResponseEntity<>(registerResponsibles.delete(id), HttpStatus.OK);
+
+    }
+    
 
 }

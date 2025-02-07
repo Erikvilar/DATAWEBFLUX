@@ -31,7 +31,7 @@ public class SecurityServiceControll {
             var auth = authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generatedToken((Account) auth.getPrincipal());
             var login = accountRepository.findAccountByLogin(data.login());
-            var userLogged = new ToFrontDTO(login.getAvatar(), login.getLogin(), token);
+            var userLogged = new ToFrontDTO(login.getAvatar(), login.getLogin(),  token, login.getRole().toString());
             log.info("Usuario {} fez login no sistema ", data.login());
             return userLogged;
         } catch (Exception e) {

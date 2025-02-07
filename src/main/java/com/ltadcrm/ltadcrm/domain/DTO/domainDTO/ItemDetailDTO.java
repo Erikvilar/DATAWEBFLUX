@@ -123,8 +123,12 @@ public class ItemDetailDTO {
     private Long receivingCode;
     @JsonProperty("lotação")
     private String lotation;
-    @JsonProperty("local")
-    private String local;
+    @JsonProperty("fornecedor")
+    private String supplier;
+    @JsonProperty("termoPDF")
+    private String pdfTerm;
+    @JsonProperty("pedidoPDF")
+    private String pdfOrder;
     @JsonProperty("empSIAFI")
     private String empSiafi;
     

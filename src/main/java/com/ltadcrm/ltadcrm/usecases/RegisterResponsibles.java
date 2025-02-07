@@ -3,6 +3,8 @@ package com.ltadcrm.ltadcrm.usecases;
 
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.ltadcrm.ltadcrm.domain.Responsible;
@@ -33,11 +35,20 @@ public class RegisterResponsibles {
         repository.save(responsible);
         
         return responsibleMapper.toDto(responsible);
-       
+    
+    }
 
-
-
-
+    public List<ResponsibleDTO> getResponsible(){
+        List<Responsible> responsible = repository.findAll();
+        return responsible.stream().map(res -> {
+             return new ResponsibleDTO(res.getId(), res.getName(), res.getOccupation());
+        }).toList();
+        
+    }
+    public String delete(Long id){
+        repository.deleteById(id);
+        return "usuario deletado";
+        
     }
 
 }
