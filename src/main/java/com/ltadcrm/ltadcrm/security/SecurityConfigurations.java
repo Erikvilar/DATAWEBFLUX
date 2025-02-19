@@ -37,6 +37,9 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cadastrar").permitAll()
+                        .requestMatchers(
+                        "/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/logs/").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated())

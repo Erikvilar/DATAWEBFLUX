@@ -1,5 +1,7 @@
 package com.ltadcrm.ltadcrm.usecases;
 
+import java.time.LocalDate;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +79,7 @@ public class CreateMethod {
             item.setReceiving(receiving);
             receivingRepository.save(receiving);
 
-            return ResponseEntity.ok("Item criado");
+            return ResponseEntity.ok("HTTP RESPONSE NOTIFY DATAWEBFLUX\nID: "+item.getId()+"\nITEM: "+updateDTO.getDetailsDTO().getDescription()+"\nResponse status server: OK\nDATE: "+LocalDate.now());
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ocorreu um erro ao criar o item " + e);
