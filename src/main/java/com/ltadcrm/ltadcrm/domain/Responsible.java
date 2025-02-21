@@ -1,7 +1,6 @@
 package com.ltadcrm.ltadcrm.domain;
 
 
-import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_responsible")
-public class Responsible implements Serializable {
+public class Responsible {
     
 
    
@@ -26,6 +25,9 @@ public class Responsible implements Serializable {
     private Long id;
     private String name;
     private String occupation;
+
+
+
 
 
 }

@@ -45,7 +45,7 @@ public class UpdatedMethod {
 
         @Transactional
 
-        public ResponseEntity<String> update(UpdateDTO updateDTO) {
+        public String update(UpdateDTO updateDTO) {
                 /*
                  * After update this line catch old value from Items -> details
                  */ Items oldObject = itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId())
@@ -92,10 +92,10 @@ public class UpdatedMethod {
                                         oldValueFromObject);
                         eventPublisher.publishEvent(event);
 
-                        return ResponseEntity.ok("Dados salvos");
+                        return"Dados salvos";
 
                 } catch (Exception e) {
-                        return ResponseEntity.badRequest().body("Error " + e);
+                        return "Error " + e;
                 }
         }
 

@@ -10,4 +10,5 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 @Mapper(componentModel = "spring")
 public interface UsersMapper {
         Users updateDomainFromDTO(@MappingTarget Users users, UsersDTO usersDTO);
+        Users toEntity(UsersDTO usersDTO);
 }

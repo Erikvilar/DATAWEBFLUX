@@ -1,9 +1,11 @@
 package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,9 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+//items
 public class ItemsDTO{
-
-
 
     @JsonProperty("id_item")
     private Long id;
@@ -33,7 +34,8 @@ public class ItemsDTO{
     private String processSEI;
 
     @JsonProperty("caminho_imagem_item")
-    private String pathImage;
+    @Size(max = 2)
+    private List<String> pathImage;
 
     @JsonProperty("pedido_origem")
     private String order;
@@ -52,6 +54,23 @@ public class ItemsDTO{
 
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
+
+
+
+    //Tabela contato
+    @JsonProperty("cost_center")
+    private CostCenterDTO costCenterDTO;
+    //Tabela  details
+    @JsonProperty("details")
+    private DetailsDTO detailsDTO;
+    //Tabela user
+    @JsonProperty("users")
+    private UsersDTO usersDTO;
+    //Tabela recebimento
+    @JsonProperty("receiving")
+    private ReceivingDTO receivingDTO;
+
+
 
 
 

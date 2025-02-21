@@ -3,7 +3,7 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.ltadcrm.ltadcrm.domain.Contacts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +21,8 @@ public class UsersDTO {
         private String userName;
         @JsonProperty("tipo_usuario")
         private String userType;
-      
-
-   
-
-
+        @JsonProperty("contacts")
+        private ContactsDTO contactsDTO;
 
 
       

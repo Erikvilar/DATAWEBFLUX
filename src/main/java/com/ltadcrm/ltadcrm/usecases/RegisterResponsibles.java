@@ -26,7 +26,7 @@ public class RegisterResponsibles {
 
 
     public ResponsibleDTO register(ResponsibleDTO responsibleDTO) throws Exception {
-     
+        
         if(repository.findByName(responsibleDTO.getName()) != null){
             throw new Exception("Usuario ja existe");
         }

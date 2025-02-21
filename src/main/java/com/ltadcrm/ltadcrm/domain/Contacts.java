@@ -21,10 +21,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "tb_contact")
 public class Contacts implements Serializable {
-
-    @Column(name = "id_contact")
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_contact") 
     private Long id;
     @Column(name = "email_contact")
     @JsonProperty("email")

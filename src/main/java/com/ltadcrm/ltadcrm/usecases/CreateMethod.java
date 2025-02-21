@@ -11,6 +11,7 @@ import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.Users;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
@@ -25,6 +26,7 @@ import com.ltadcrm.ltadcrm.usecases.mapper.ItemsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,45 +46,42 @@ public class CreateMethod {
     private final ContactsMapper contactsMapper;
     private final ReceivingMapper receivingMapper;
 
-    public ResponseEntity<String> create(UpdateDTO updateDTO) {
+ 
+    public String create(ItemsDTO itemsDTO) {
         try {
 
             Items item = new Items();
-            itemsMapper.updateDomainFromDTO(item, updateDTO.getItemsDTO());
-            itemsRepository.save(item); 
+            itemsMapper.updateDomainFromDTO(item, itemsDTO);
+            Contacts contacts = contactsRepository.findById(itemsDTO.getUsersDTO().getContactsDTO().getId()).get();
+            Users user = usersRepository.findById(itemsDTO.getUsersDTO().getId())
+                    .orElseGet(() -> {
+                        Users newUser = usersMapper.toEntity(itemsDTO.getUsersDTO());
+                        newUser.setContacts(contacts);
+                        return newUser;
+                    });
 
+            Details details = detailsRepository.findById(itemsDTO.getDetailsDTO().getId())
+                    .orElseGet(() -> detailsMapper.toEntity(itemsDTO.getDetailsDTO()));
 
-            Contacts contacts =  new Contacts();
-            contactsMapper.updateDomainFromDTO(contacts, updateDTO.getContactsDTO());
-            contactsRepository.save(contacts);
+            CostCenter costCenter = costCenterRepository.findById(itemsDTO.getCostCenterDTO().getId())
+                    .orElseGet(() -> costCenterMapper.toEntity(itemsDTO.getCostCenterDTO()));
 
-            Users user = new Users(); 
-            usersMapper.updateDomainFromDTO(user, updateDTO.getUsersDTO());
+            Receiving receiving = receivingRepository.findById(itemsDTO.getReceivingDTO().getReceivingID())
+                    .orElseGet(() -> receivingMapper.toEntity(itemsDTO.getReceivingDTO()));
+
             item.setUsers(user);
-            user.setContacts(contacts);
-            usersRepository.save(user); 
-
-            Details details = new Details();
-            detailsMapper.updateDomainFromDTO(details, updateDTO.getDetailsDTO());
             item.setDetails(details);
-            detailsRepository.save(details); 
-
-      
-
-            CostCenter costCenter = new CostCenter();
-            costCenterMapper.updateDomainFromDTO(costCenter, updateDTO.getCostCenterDTO());
             item.setCostCenter(costCenter);
-            costCenterRepository.save(costCenter);
-
-            Receiving receiving = new Receiving();
-            receivingMapper.updateDomainFromDTO(receiving, updateDTO.getReceivingDTO());
             item.setReceiving(receiving);
-            receivingRepository.save(receiving);
+            usersRepository.save(user);
+            itemsRepository.save(item);
 
-            return ResponseEntity.ok("HTTP RESPONSE NOTIFY DATAWEBFLUX\nID: "+item.getId()+"\nITEM: "+updateDTO.getDetailsDTO().getDescription()+"\nResponse status server: OK\nDATE: "+LocalDate.now());
+            return "HTTP RESPONSE NOTIFY DATAWEBFLUX\nID: " + item.getId() + "\nITEM: "
+                    + itemsDTO.getDetailsDTO().getDescription() + "\nResponse status server: OK\nDATE: "
+                    + LocalDate.now();
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ocorreu um erro ao criar o item " + e);
+            return "Ocorreu um erro ao criar o item " + e;
         }
     }
 

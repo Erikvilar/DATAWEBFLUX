@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ltadcrm.ltadcrm.domain.Contacts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,14 +38,5 @@ public class ContactsDTO {
   @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
   private LocalDateTime updateIn;
 
-  public ContactsDTO(Contacts contacts) {
-    id = contacts.getId();
-    email = contacts.getEmail();
-    responsibleGeneral = contacts.getResponsibleGeneral();
-    occupation = contacts.getOccupation();
-    phone = contacts.getPhone();
-    lastModification = contacts.getLastModification();
-    updateIn = LocalDateTime.now();
-  }
 
 }

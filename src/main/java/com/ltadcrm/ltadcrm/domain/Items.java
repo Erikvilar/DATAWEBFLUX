@@ -1,11 +1,11 @@
 package com.ltadcrm.ltadcrm.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,9 @@ public class Items implements Serializable{
     private String observation;
 
     @Column(name = "pathImage_item")
-    private  String pathImage;
+    @Size(max = 2)
+    @ElementCollection
+    private List<String> pathImage;
 
     @Column(name = "sde_item")
     private Long sde;

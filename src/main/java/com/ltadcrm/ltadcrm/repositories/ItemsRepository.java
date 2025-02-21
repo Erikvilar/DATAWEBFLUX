@@ -10,25 +10,22 @@ import org.springframework.stereotype.Repository;
 
 import com.ltadcrm.ltadcrm.domain.Items;
 
-import jakarta.persistence.Tuple;
 
 @Repository
 public interface ItemsRepository extends JpaRepository<Items, Long> {
-
-    @Query(value = "CALL GetAllItems()", nativeQuery = true)
-    List<Tuple> findAllItemsDTOs();
+ 
+   
 
     Optional<Items> findAllById(Long id);
 
     List<Items> findByCostCenterName(String name);
-
 
     @Query(value = """
             select it.*
             from tb_items
             it where
             it.id_items = :id
-            """, nativeQuery= true)
+            """, nativeQuery = true)
     Optional<Items> findByIdWithPessimisticLock(@Param("id") Long id);
 
 }
