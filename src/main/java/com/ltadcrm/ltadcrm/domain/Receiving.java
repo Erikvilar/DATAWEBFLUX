@@ -24,6 +24,7 @@ public class Receiving implements Serializable{
     private Long receivingCode;
     private String lotation;
     private String supplier;
+    private String email;
     private String pdfTerm;
     private String pdfOrder;
     private String empSIAFI;

@@ -19,6 +19,8 @@ public class ReceivingDTO {
     private String lotation;
     @JsonProperty("fornecedor")
     private String supplier;
+    @JsonProperty("email_fornecedor")
+    private String email;
     @JsonProperty("termoPDF")
     private String pdfTerm;
     @JsonProperty("pedidoPDF")

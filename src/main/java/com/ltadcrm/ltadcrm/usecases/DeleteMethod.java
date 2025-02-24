@@ -17,17 +17,17 @@ public class DeleteMethod {
 
     private final ItemsRepository itemsRepository;
     
-    public ResponseEntity<String> deleteItem(List<Long> id) {
+    public String deleteItem(List<Long> id) {
 
         List<Items> items = itemsRepository.findAllById(id);
         try {
             if (!items.isEmpty()) {
                 itemsRepository.deleteAll(items);
-                return ResponseEntity.ok("Linha  foi deletada");
+                return "Linha  foi deletada";
             }
-            return ResponseEntity.noContent().build();
+            return "NO CONTENT";
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ocorreu um erro ao deletar " + e);
+            return "Ocorreu um erro ao deletar ";
         }
 
     }

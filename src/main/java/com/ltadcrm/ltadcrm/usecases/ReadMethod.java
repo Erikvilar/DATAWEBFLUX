@@ -7,14 +7,20 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
-import com.ltadcrm.ltadcrm.usecases.strategy.ItemDetailsDTOConvertImpl;
+import com.ltadcrm.ltadcrm.usecases.mapper.ContactsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.CostCenterMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.DetailsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.ItemsMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
-import jakarta.persistence.Tuple;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,20 +30,26 @@ import lombok.extern.slf4j.Slf4j;
 public class ReadMethod {
 
     private final ItemsRepository itemsRepository;
-    private final ItemDetailsDTOConvertImpl convert;
+    private final ItemsMapper itemsMapper;
+    private final UsersMapper usersMapper;
+    private final DetailsMapper detailsMapper;
+    private final CostCenterMapper costCenterMapper;
+    private final ContactsMapper contactsMapper;
+    private final ReceivingMapper receivingMapper;
 
     public List<ItemDetailDTO> list() throws Exception {
-        try {
+        List<Items> items = itemsRepository.findAll();
+        return items.stream().map(entity -> {
 
-            List<ItemDetailDTO> dtos = new ArrayList<>();
-            for (Tuple tuple : itemsRepository.findAllItemsDTOs()) {
-                ItemDetailDTO dto = convert.convert(tuple);
-                dtos.add(dto);
-            }
-            return dtos;
-        } catch (Exception e) {
-            throw new Exception("Current error in ItemService " + e);
-        }
+            return ItemDetailDTO.fromDto(
+                    usersMapper.toDto(entity.getUsers()),
+                    itemsMapper.toDto(entity),
+                    detailsMapper.toDto(entity.getDetails()),
+                    costCenterMapper.toDto(entity.getCostCenter()),
+                    contactsMapper.toDto(entity.getUsers().getContacts()),
+                    receivingMapper.toDto(entity.getReceiving()));
+        }).toList();
+
     }
 
     public ListWithTotalValues<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {

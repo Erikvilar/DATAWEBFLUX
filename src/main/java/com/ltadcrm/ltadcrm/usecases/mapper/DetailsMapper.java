@@ -11,4 +11,5 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.DetailsDTO;
 @Mapper(componentModel = "spring")
 public interface DetailsMapper {
     Details updateDomainFromDTO(@MappingTarget Details details, DetailsDTO detailsDTO);
+    DetailsDTO toDto(Details details);
 }

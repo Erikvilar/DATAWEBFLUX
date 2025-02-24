@@ -8,4 +8,5 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
 @Mapper(componentModel = "spring")
 public interface CostCenterMapper {
     CostCenter updateDomainFromDTO(@MappingTarget CostCenter costCenter, CostCenterDTO costCenterDTO);
+    CostCenterDTO toDto(CostCenter costCenter);
 }

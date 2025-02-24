@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ResponsibleDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.usecases.CreateMethod;
@@ -20,15 +22,20 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.ACCEPTED;
+
+import static org.springframework.http.HttpStatus.OK;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @Slf4j
@@ -43,45 +50,61 @@ public class GeneralController {
     private final UpdatedMethod updateMethod;
    private final RegisterResponsibles registerResponsibles;
 
+
+    @ResponseStatus(OK)
     @GetMapping
-    public ResponseEntity<List<ItemDetailDTO>> showAllDTO() throws Exception {
-        return new ResponseEntity<>(readMethod.list(), HttpStatus.OK);
+    public List<ItemDetailDTO> showAllDTO() throws Exception {
+        return readMethod.list();
     }
-
+    
+    @ResponseStatus(CREATED)
     @PostMapping("/create")
-    public ResponseEntity<String> saveMethod(@RequestBody UpdateDTO updateDTO) {
-        return createMethod.create(updateDTO);
+    public String saveMethod(@RequestBody CreateItemsDTO createItemsDTO) {
+        return createMethod.create(createItemsDTO);
+    }
+    
+    @ResponseStatus(CREATED)
+    @PostMapping("/create/costcenter")
+    public CostCenterDTO createCostCenter (@RequestBody CostCenterDTO costCenterDTO){
+        return createMethod.createCostCenter(costCenterDTO);
     }
 
+    @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteItem(@PathVariable List<Long> id) {
+    public String deleteItem(@PathVariable List<Long> id) {
         return deleteMethod.deleteItem(id);
 
     }
 
+    @ResponseStatus(ACCEPTED)
     @PutMapping("/update")
-    public ResponseEntity<String> postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
-        log.info("{}", updateDTO.getClass());
+    public String postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
         return updateMethod.update(updateDTO);
 
     }
-
+    
+    @ResponseStatus(OK)
     @GetMapping("/costcenter/{name}")
-    public ResponseEntity<ListWithTotalValues<CostCenterByNameDTO>> getMethodName(@PathVariable String name) throws Exception {
-        return new ResponseEntity<>(readMethod.readItemsByCostCenter(name), HttpStatus.OK);
+    public ListWithTotalValues<CostCenterByNameDTO> getMethodName(@PathVariable String name) throws Exception {
+        return readMethod.readItemsByCostCenter(name);
     }
 
+    @ResponseStatus(CREATED)
     @PostMapping("/responsible")
-    public ResponseEntity<ResponsibleDTO> registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
-        return new ResponseEntity<>(registerResponsibles.register(responsibleDTO), HttpStatus.OK);
+    public ResponsibleDTO registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
+        return registerResponsibles.register(responsibleDTO);
     }
+    
+    @ResponseStatus(OK)
     @GetMapping("/responsible")
-    public ResponseEntity<List<ResponsibleDTO>> getAllResponsibles() {
-        return new ResponseEntity<>(registerResponsibles.getResponsible(), HttpStatus.OK);
+    public List<ResponsibleDTO> getAllResponsibles() {
+        return registerResponsibles.getResponsible();
     }
+
+    @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/responsible/{id}")
-    public ResponseEntity<String> deleteSomeResponsible(@PathVariable Long id){
-       return  new ResponseEntity<>(registerResponsibles.delete(id), HttpStatus.OK);
+    public String deleteSomeResponsible(@PathVariable Long id){
+       return registerResponsibles.delete(id);
 
     }
     

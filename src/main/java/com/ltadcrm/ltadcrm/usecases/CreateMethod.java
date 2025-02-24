@@ -9,7 +9,8 @@ import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.Users;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
@@ -24,7 +25,8 @@ import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CreateMethod {
@@ -42,46 +44,50 @@ public class CreateMethod {
     private final ContactsMapper contactsMapper;
     private final ReceivingMapper receivingMapper;
 
-    public ResponseEntity<String> create(UpdateDTO updateDTO) {
+    public String create(CreateItemsDTO createItemsDTO) {
+        CostCenter costCenter = costCenterRepository.findById(createItemsDTO.getCostCenterID())
+                .orElseThrow(() -> new RuntimeException("Nao foi encontrado o ID deste projeto"));
+                log.info("Cost center: {}", costCenter);
         try {
 
             Items item = new Items();
-            itemsMapper.updateDomainFromDTO(item, updateDTO.getItemsDTO());
-            itemsRepository.save(item); 
+            itemsMapper.updateDomainFromDTO(item, createItemsDTO.getItemsDTO());
+            itemsRepository.save(item);
 
-
-            Contacts contacts =  new Contacts();
-            contactsMapper.updateDomainFromDTO(contacts, updateDTO.getContactsDTO());
+            Contacts contacts = new Contacts();
+            contactsMapper.updateDomainFromDTO(contacts, createItemsDTO.getContactsDTO());
             contactsRepository.save(contacts);
 
-            Users user = new Users(); 
-            usersMapper.updateDomainFromDTO(user, updateDTO.getUsersDTO());
+            Users user = new Users();
+            usersMapper.updateDomainFromDTO(user, createItemsDTO.getUsersDTO());
             item.setUsers(user);
             user.setContacts(contacts);
-            usersRepository.save(user); 
+            usersRepository.save(user);
 
             Details details = new Details();
-            detailsMapper.updateDomainFromDTO(details, updateDTO.getDetailsDTO());
+            detailsMapper.updateDomainFromDTO(details, createItemsDTO.getDetailsDTO());
             item.setDetails(details);
-            detailsRepository.save(details); 
+            detailsRepository.save(details);
 
-      
-
-            CostCenter costCenter = new CostCenter();
-            costCenterMapper.updateDomainFromDTO(costCenter, updateDTO.getCostCenterDTO());
             item.setCostCenter(costCenter);
-            costCenterRepository.save(costCenter);
 
             Receiving receiving = new Receiving();
-            receivingMapper.updateDomainFromDTO(receiving, updateDTO.getReceivingDTO());
+            receivingMapper.updateDomainFromDTO(receiving, createItemsDTO.getReceivingDTO());
             item.setReceiving(receiving);
             receivingRepository.save(receiving);
 
-            return ResponseEntity.ok("Item criado");
+            return "Item criado";
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ocorreu um erro ao criar o item " + e);
+            return "Ocorreu um erro ao criar o item " + e;
         }
     }
 
+    public CostCenterDTO createCostCenter(CostCenterDTO costCenterDTO) {
+
+        CostCenter costCenter = new CostCenter();
+        costCenterMapper.updateDomainFromDTO(costCenter, costCenterDTO);
+        return costCenterMapper.toDto(costCenterRepository.save(costCenter));
+
+    }
 }

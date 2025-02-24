@@ -65,15 +65,19 @@ public class Items implements Serializable{
     /*
      * @Definindo relacionamentos para a a tabela items(Patrimonios)
      */
+   
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_details")
     private Details details;
+   
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_users")
     private Users users;
+   
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_costCenter")
     private CostCenter costCenter;
+   
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "receivingID")
     private Receiving receiving;

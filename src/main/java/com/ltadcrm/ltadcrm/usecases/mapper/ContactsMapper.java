@@ -8,4 +8,5 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ContactsDTO;
 @Mapper(componentModel = "spring")
 public interface  ContactsMapper {
     Contacts updateDomainFromDTO(@MappingTarget Contacts contacts, ContactsDTO contactsDTO);
+    ContactsDTO toDto(Contacts contacts);
 }

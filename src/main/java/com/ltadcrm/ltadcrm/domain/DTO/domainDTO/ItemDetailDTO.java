@@ -4,9 +4,7 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -61,6 +59,8 @@ public class ItemDetailDTO {
     @JsonProperty("valor_item")
     private Double value;
 
+    @JsonProperty("lastModify")
+    private String lastModification;
     // Dados de 'tb_description'
     @JsonProperty("id_descricao")
     private Long descriptionId;
@@ -112,10 +112,6 @@ public class ItemDetailDTO {
     @JsonProperty("telefone_contato")
     private String contactPhone;
 
-    @JsonProperty("lastModify")
-    private String lastModification;
-
-
     //dados de ´´tb_receiving´
     @JsonProperty("id_recebimento")
     private Long receivingID;
@@ -125,6 +121,8 @@ public class ItemDetailDTO {
     private String lotation;
     @JsonProperty("fornecedor")
     private String supplier;
+    @JsonProperty("email_fornecedor")
+    private String email;
     @JsonProperty("termoPDF")
     private String pdfTerm;
     @JsonProperty("pedidoPDF")
@@ -135,6 +133,59 @@ public class ItemDetailDTO {
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
 
+    public static ItemDetailDTO fromDto(UsersDTO usersDTO, ItemsDTO itemsDTO, DetailsDTO detailsDTO, CostCenterDTO costCenterDTO, ContactsDTO contactsDTO, ReceivingDTO receivingDTO) {
+        return new ItemDetailDTO(
+            // Dados de 'tb_users'
+            usersDTO.getId(),
+            usersDTO.getUserName(),
+            usersDTO.getUserType(),
+    
+            // Dados de 'tb_items'
+            itemsDTO.getId(),
+            itemsDTO.getNfInvoice(),
+            itemsDTO.getNumber(),
+            itemsDTO.getProcessSEI(),
+            itemsDTO.getObservation(),
+            itemsDTO.getPathImage(),
+            itemsDTO.getOrder(),
+            itemsDTO.getSde(),
+            itemsDTO.getStatus(),
+            itemsDTO.getValue(),
+            itemsDTO.getLastModification(),
+            // Dados de 'tb_description'
+            detailsDTO.getId(),
+            detailsDTO.getBrand(),
+            detailsDTO.getDescription(),
+            detailsDTO.getLocal(),
+            detailsDTO.getModel(),
+            detailsDTO.getSerial(),
+
+            // Dados de 'tb_cost_center'
+            costCenterDTO.getId(),
+            costCenterDTO.getName(),
+            costCenterDTO.getIdentification(),
+            costCenterDTO.getInitialDate(),
+            costCenterDTO.getEndDate(),
+    
+            // Dados de 'tb_contact'
+            contactsDTO.getId(),
+            contactsDTO.getEmail(),
+            contactsDTO.getResponsibleGeneral(),
+            contactsDTO.getOccupation(),
+            contactsDTO.getPhone(),
+    
+            // Dados de 'tb_receiving'
+            receivingDTO.getReceivingID(),
+            receivingDTO.getReceivingCode(),
+            receivingDTO.getLotation(),
+            receivingDTO.getSupplier(),
+            receivingDTO.getEmail(),
+            receivingDTO.getPdfTerm(),
+            receivingDTO.getPdfOrder(),
+            receivingDTO.getEmpSIAFI(),
+            itemsDTO.getUpdateIn()
+        );
+    }
    
 
 }
