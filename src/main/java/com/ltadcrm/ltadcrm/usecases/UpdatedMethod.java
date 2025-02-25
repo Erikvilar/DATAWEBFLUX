@@ -3,13 +3,13 @@ package com.ltadcrm.ltadcrm.usecases;
 
 import org.springframework.context.ApplicationEventPublisher;
 
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
-import com.ltadcrm.ltadcrm.events.Items.ItemUpdatedEvent;
+
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
@@ -77,20 +77,7 @@ public class UpdatedMethod {
                         receivingRepository.save(receivingMapper.updateDomainFromDTO(receivingRepository
                                         .findByIdWithPessimisticLock(updateDTO.getReceivingDTO().getReceivingID())
                                         .get(), updateDTO.getReceivingDTO()));
-                                        
-                        Items existingItem = itemsRepository
-                                        .findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId()).get();
-
-                        /*
-                         * Log register
-                         */
-                        ItemUpdatedEvent event = new ItemUpdatedEvent(
-                                        existingItem.getId(),
-                                        existingItem.getLastModification(),
-                                        existingItem.getValue(),
-                                        existingItem.getDetails().getDescription(),
-                                        oldValueFromObject);
-                        eventPublisher.publishEvent(event);
+           
 
                         return "Dados salvos";
 

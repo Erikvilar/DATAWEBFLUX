@@ -1,6 +1,8 @@
 package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -48,7 +50,7 @@ public class ItemsDTO{
     private Double value;
 
     @JsonProperty("lastModify")
-    private String lastModification;
+    private List<String> lastModification;
 
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;

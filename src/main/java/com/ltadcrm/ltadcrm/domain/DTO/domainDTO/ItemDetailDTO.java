@@ -3,7 +3,7 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -60,7 +60,7 @@ public class ItemDetailDTO {
     private Double value;
 
     @JsonProperty("lastModify")
-    private String lastModification;
+    private List<String> lastModification;
     // Dados de 'tb_description'
     @JsonProperty("id_descricao")
     private Long descriptionId;
