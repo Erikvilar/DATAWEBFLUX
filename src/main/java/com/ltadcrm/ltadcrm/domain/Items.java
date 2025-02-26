@@ -38,7 +38,9 @@ public class Items implements Serializable{
     private String observation;
 
     @Column(name = "pathImage_item")
-    private  String pathImage;
+    @ElementCollection
+    @Size(max = 2)
+    private List<String>pathImage;
 
     @Column(name = "sde_item")
     private Long sde;
@@ -51,6 +53,9 @@ public class Items implements Serializable{
 
     @Column(name = "status_item")
     private String status;
+
+    @Column(name = "situation_register")
+    private String situationRegister;
 
     @Column(name = "nf_invoice_item")
     private String nfInvoice;

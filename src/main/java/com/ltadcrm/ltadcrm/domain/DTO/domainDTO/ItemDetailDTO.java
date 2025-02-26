@@ -45,7 +45,7 @@ public class ItemDetailDTO {
     private String observation;
 
     @JsonProperty("caminho_imagem_item")
-    private String imagePath;
+    private List<String> pathImage;
 
     @JsonProperty("pedido_origem")
     private String orderOrigin;
@@ -55,6 +55,9 @@ public class ItemDetailDTO {
 
     @JsonProperty("status_item")
     private String status;
+
+    @JsonProperty("situacao_registro")
+    private String situationRegister;
 
     @JsonProperty("valor_item")
     private Double value;
@@ -150,6 +153,7 @@ public class ItemDetailDTO {
             itemsDTO.getOrder(),
             itemsDTO.getSde(),
             itemsDTO.getStatus(),
+            itemsDTO.getSituationRegister(),
             itemsDTO.getValue(),
             itemsDTO.getLastModification(),
             // Dados de 'tb_description'

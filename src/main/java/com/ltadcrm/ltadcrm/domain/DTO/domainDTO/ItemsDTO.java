@@ -35,7 +35,7 @@ public class ItemsDTO{
     private String processSEI;
 
     @JsonProperty("caminho_imagem_item")
-    private String pathImage;
+    private List<String> pathImage;
 
     @JsonProperty("pedido_origem")
     private String order;
@@ -45,6 +45,11 @@ public class ItemsDTO{
 
     @JsonProperty("status_item")
     private String status;
+
+    @JsonProperty("situacao_registro")
+    private String situationRegister;
+
+
 
     @JsonProperty("valor_item")
     private Double value;

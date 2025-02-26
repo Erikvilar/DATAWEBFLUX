@@ -1,6 +1,6 @@
 package com.ltadcrm.ltadcrm.usecases;
 
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import com.ltadcrm.ltadcrm.domain.Contacts;
@@ -45,9 +45,10 @@ public class CreateMethod {
     private final ReceivingMapper receivingMapper;
 
     public String create(CreateItemsDTO createItemsDTO) {
+        
         CostCenter costCenter = costCenterRepository.findById(createItemsDTO.getCostCenterID())
                 .orElseThrow(() -> new RuntimeException("Nao foi encontrado o ID deste projeto"));
-                log.info("Cost center: {}", costCenter);
+             
         try {
 
             Items item = new Items();
