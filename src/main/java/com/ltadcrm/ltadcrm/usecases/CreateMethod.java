@@ -11,6 +11,7 @@ import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.Users;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.DetailsRepository;
@@ -89,6 +90,14 @@ public class CreateMethod {
         CostCenter costCenter = new CostCenter();
         costCenterMapper.updateDomainFromDTO(costCenter, costCenterDTO);
         return costCenterMapper.toDto(costCenterRepository.save(costCenter));
+
+    }
+
+    public UsersDTO createUsers(UsersDTO usersDTO) {
+
+        Users users = new Users();
+        usersMapper.updateDomainFromDTO(users, usersDTO);
+        return usersMapper.toDto(usersRepository.save(users));
 
     }
 }
