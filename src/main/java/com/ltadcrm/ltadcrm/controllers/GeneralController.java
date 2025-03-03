@@ -9,6 +9,7 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.usecases.CreateMethod;
 import com.ltadcrm.ltadcrm.usecases.DeleteMethod;
@@ -93,6 +94,12 @@ public class GeneralController {
     @PostMapping("/responsible")
     public ResponsibleDTO registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
         return registerResponsibles.register(responsibleDTO);
+    }
+  
+    @ResponseStatus(CREATED)
+    @PostMapping("create/users")
+    public UsersDTO registerUsers(@RequestBody UsersDTO usersDTO) throws Exception{
+        return  createMethod.createUsers(usersDTO);
     }
     
     @ResponseStatus(OK)

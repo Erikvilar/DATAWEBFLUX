@@ -49,16 +49,19 @@ public class ItemsDTO{
     @JsonProperty("situacao_registro")
     private String situationRegister;
 
-
-
     @JsonProperty("valor_item")
     private Double value;
+
+    @JsonProperty("usersID")
+    private Long usersID;
 
     @JsonProperty("lastModify")
     private List<String> lastModification;
 
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
+
+
 
 
 

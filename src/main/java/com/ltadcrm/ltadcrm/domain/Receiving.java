@@ -1,11 +1,13 @@
 package com.ltadcrm.ltadcrm.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +30,11 @@ public class Receiving implements Serializable{
     private String pdfTerm;
     private String pdfOrder;
     private String empSIAFI;
+
+    @OneToMany(mappedBy = "receiving")
+    private List<Items> items;
+
+
 
 
 

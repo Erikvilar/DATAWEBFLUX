@@ -9,7 +9,7 @@ public class CreateItemsDTO {
 
  
     private ItemsDTO itemsDTO;
-    private UsersDTO usersDTO;
+    private long usersID;
     private DetailsDTO detailsDTO;
     private long costCenterID;
     private ContactsDTO contactsDTO;

@@ -1,6 +1,5 @@
 package com.ltadcrm.ltadcrm.usecases;
 
-
 import org.springframework.stereotype.Service;
 
 import com.ltadcrm.ltadcrm.domain.Contacts;
@@ -27,6 +26,7 @@ import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -46,13 +46,18 @@ public class CreateMethod {
     private final ReceivingMapper receivingMapper;
 
     public String create(CreateItemsDTO createItemsDTO) {
-        
+
         CostCenter costCenter = costCenterRepository.findById(createItemsDTO.getCostCenterID())
                 .orElseThrow(() -> new RuntimeException("Nao foi encontrado o ID deste projeto"));
-             
+
+        Users users = usersRepository.findAllById(createItemsDTO.getUsersID())
+                .orElseThrow(() -> new RuntimeException("Não foi encontrado o ID deste usuario"));
+
         try {
 
-            Items item = new Items();
+
+            
+            Items item = new Items()  ;
             itemsMapper.updateDomainFromDTO(item, createItemsDTO.getItemsDTO());
             itemsRepository.save(item);
 
@@ -60,14 +65,12 @@ public class CreateMethod {
             contactsMapper.updateDomainFromDTO(contacts, createItemsDTO.getContactsDTO());
             contactsRepository.save(contacts);
 
-            Users user = new Users();
-            usersMapper.updateDomainFromDTO(user, createItemsDTO.getUsersDTO());
-            item.setUsers(user);
-            user.setContacts(contacts);
-            usersRepository.save(user);
+            item.setUsers(users);
+            users.setContacts(contacts);
+            usersRepository.save(users);
 
             Details details = new Details();
-            detailsMapper.updateDomainFromDTO(details, createItemsDTO.getDetailsDTO());
+            detailsMapper.updateDomainFromDTO(details, createItemsDTO.getDetailsDTO()); 
             item.setDetails(details);
             detailsRepository.save(details);
 
@@ -85,6 +88,10 @@ public class CreateMethod {
         }
     }
 
+
+
+
+
     public CostCenterDTO createCostCenter(CostCenterDTO costCenterDTO) {
 
         CostCenter costCenter = new CostCenter();
@@ -100,4 +107,5 @@ public class CreateMethod {
         return usersMapper.toDto(usersRepository.save(users));
 
     }
+
 }

@@ -71,7 +71,7 @@ public class Items implements Serializable{
     @Column(name = "update_in")
     private LocalDateTime updateIn;
     /*
-     * @Definindo relacionamentos para a a tabela items(Patrimonios)
+     * @Definindo relacionamentos para a a tabela items
      */
    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
