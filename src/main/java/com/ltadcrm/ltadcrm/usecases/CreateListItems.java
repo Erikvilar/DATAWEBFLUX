@@ -72,7 +72,7 @@ public class CreateListItems {
     
           
                 Details details = new Details();
-                detailsMapper.updateDomainFromDTO(details, itemsDTO.getDetails());
+                detailsMapper.updateDomainFromDTO(details, itemsDTO.getDetailsDTO());
                 items.setDetails(detailsRepository.save(details));
     
              
@@ -88,7 +88,7 @@ public class CreateListItems {
  
             return "Item(s) salvo(s) com sucesso!";
         } catch (Exception e) {
-            // Retorna uma mensagem de erro mais detalhada
+         
             throw new Exception("Ocorreu um erro ao salvar o recebimento e os itens: " + e.getMessage(), e);
         }
     }

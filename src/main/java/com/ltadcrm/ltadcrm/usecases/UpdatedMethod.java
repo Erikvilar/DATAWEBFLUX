@@ -3,7 +3,6 @@ package com.ltadcrm.ltadcrm.usecases;
 
 import org.springframework.context.ApplicationEventPublisher;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,26 +57,30 @@ public class UpdatedMethod {
                                         itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId())
                                                         .get(),
                                         updateDTO.getItemsDTO()));
+                                        
                         usersRepository.save(usersMapper.updateDomainFromDTO(
                                         usersRepository.findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId())
                                                         .get(),
                                         updateDTO.getUsersDTO()));
+
                         detailsRepository.save(detailsMapper.updateDomainFromDTO(
                                         detailsRepository.findById(updateDTO.getDetailsDTO().getId()).get(),
                                         updateDTO.getDetailsDTO()));
+
                         contactsRepository.save(contactsMapper.updateDomainFromDTO(
                                         contactsRepository
                                                         .findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId())
                                                         .get(),
                                         updateDTO.getContactsDTO()));
+
                         costCenterRepository.save(costCenterMapper.updateDomainFromDTO(
                                         costCenterRepository.findByIdWithPessimisticLock(
                                                         updateDTO.getCostCenterDTO().getId()).get(),
                                         updateDTO.getCostCenterDTO()));
+
                         receivingRepository.save(receivingMapper.updateDomainFromDTO(receivingRepository
                                         .findByIdWithPessimisticLock(updateDTO.getReceivingDTO().getReceivingID())
                                         .get(), updateDTO.getReceivingDTO()));
-           
 
                         return "Dados salvos";
 

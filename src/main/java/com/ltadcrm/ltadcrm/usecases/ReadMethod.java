@@ -57,7 +57,7 @@ public class ReadMethod {
                     }
     
                     return itemsList.stream().map(item -> 
-                        ItemDetailDTO.fromDto(
+                        ItemDetailDTO.fromDto(  
                             usersMapper.toDto(item.getUsers()),
                             itemsMapper.toDto(item),
                             detailsMapper.toDto(item.getDetails()),
