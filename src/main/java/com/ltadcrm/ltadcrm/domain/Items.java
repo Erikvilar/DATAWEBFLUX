@@ -85,8 +85,8 @@ public class Items implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_costCenter")
     private CostCenter costCenter;
-   
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receivingID")
     private Receiving receiving;
 

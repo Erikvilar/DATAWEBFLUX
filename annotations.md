@@ -23,3 +23,17 @@ public class Employee {
     @JoinColumn(name = "department_id") // Chave estrangeira
     private Department department;
 }
+```
+
+📅 **Data:** 03/03/2025  
+👨‍💻 **Projeto:** Sistema LTAD CRM
+
+---
+
+## 📌 Conceito: De relacionamentos em entidades e referencias em DTO
+
+> nesta mudança sugiro trocar
+--  receivingDTO seja a entidade principal.
+--  itemsDTO se torne uma lista dentro de receivingDTO.
+--  UsersDTO contenha contactsDTO
+--  

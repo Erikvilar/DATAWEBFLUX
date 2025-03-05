@@ -137,6 +137,10 @@ public class ItemDetailDTO {
     private LocalDateTime updateIn;
 
     public static ItemDetailDTO fromDto(UsersDTO usersDTO, ItemsDTO itemsDTO, DetailsDTO detailsDTO, CostCenterDTO costCenterDTO, ContactsDTO contactsDTO, ReceivingDTO receivingDTO) {
+        if (usersDTO == null || itemsDTO == null || detailsDTO == null || costCenterDTO == null || contactsDTO == null || receivingDTO == null) {
+            System.out.println("Algum dos DTOs está nulo");
+        }
+       
         return new ItemDetailDTO(
             // Dados de 'tb_users'
             usersDTO.getId(),
@@ -172,11 +176,11 @@ public class ItemDetailDTO {
             costCenterDTO.getEndDate(),
     
             // Dados de 'tb_contact'
-            contactsDTO.getId(),
-            contactsDTO.getEmail(),
-            contactsDTO.getResponsibleGeneral(),
-            contactsDTO.getOccupation(),
-            contactsDTO.getPhone(),
+            usersDTO.getContactsDTO().getId(),
+            usersDTO.getContactsDTO().getEmail(),
+            usersDTO.getContactsDTO().getResponsibleGeneral(),
+            usersDTO.getContactsDTO().getOccupation(),
+            usersDTO.getContactsDTO().getPhone(),
     
             // Dados de 'tb_receiving'
             receivingDTO.getReceivingID(),

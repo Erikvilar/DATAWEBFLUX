@@ -3,10 +3,13 @@ package com.ltadcrm.ltadcrm.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -31,8 +34,10 @@ public class Receiving implements Serializable{
     private String pdfOrder;
     private String empSIAFI;
 
-    @OneToMany(mappedBy = "receiving")
+    @OneToMany(mappedBy = "receiving", fetch = FetchType.EAGER)
     private List<Items> items;
+
+
 
 
 

@@ -21,7 +21,8 @@ public class UsersDTO {
         private String userName;
         @JsonProperty("tipo_usuario")
         private String userType;
-      
+        @JsonProperty("contacts")
+        private ContactsDTO contactsDTO;
 
    
 

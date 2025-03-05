@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ReceivingListDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ResponsibleDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
@@ -11,6 +12,7 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
+import com.ltadcrm.ltadcrm.usecases.CreateListItems;
 import com.ltadcrm.ltadcrm.usecases.CreateMethod;
 import com.ltadcrm.ltadcrm.usecases.DeleteMethod;
 import com.ltadcrm.ltadcrm.usecases.ReadMethod;
@@ -48,6 +50,7 @@ public class GeneralController {
     private final ReadMethod readMethod;
     private final DeleteMethod deleteMethod;
     private final CreateMethod createMethod;
+    private final CreateListItems createListItems;
     private final UpdatedMethod updateMethod;
    private final RegisterResponsibles registerResponsibles;
 
@@ -69,6 +72,14 @@ public class GeneralController {
     public CostCenterDTO createCostCenter (@RequestBody CostCenterDTO costCenterDTO){
         return createMethod.createCostCenter(costCenterDTO);
     }
+    @ResponseStatus(CREATED)
+    @PostMapping("/create/list")
+    public String createListItems (@RequestBody ReceivingListDTO dto) throws Exception{
+        return createListItems.create(dto);
+    }
+
+
+
 
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/{id}")

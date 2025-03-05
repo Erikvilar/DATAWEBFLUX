@@ -4,12 +4,17 @@ package com.ltadcrm.ltadcrm.usecases;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ltadcrm.ltadcrm.domain.Items;
+import com.ltadcrm.ltadcrm.domain.Receiving;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
+import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
+import com.ltadcrm.ltadcrm.repositories.ReceivingRepository;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.usecases.mapper.ContactsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.CostCenterMapper;
@@ -34,21 +39,41 @@ public class ReadMethod {
     private final CostCenterMapper costCenterMapper;
     private final ContactsMapper contactsMapper;
     private final ReceivingMapper receivingMapper;
-
+    private final ReceivingRepository receivingRepository;
+    private final ContactsRepository contactsRepository;
+    @Transactional
     public List<ItemDetailDTO> list() throws Exception {
-        List<Items> items = itemsRepository.findAll();
-        return items.stream().map(entity -> {
-
-            return ItemDetailDTO.fromDto(
-                    usersMapper.toDto(entity.getUsers()),
-                    itemsMapper.toDto(entity),
-                    detailsMapper.toDto(entity.getDetails()),
-                    costCenterMapper.toDto(entity.getCostCenter()),
-                    contactsMapper.toDto(entity.getUsers().getContacts()),
-                    receivingMapper.toDto(entity.getReceiving()));
-        }).toList();
-
+        try {
+            List<Receiving> receivings = receivingRepository.findAll();
+            if (receivings.isEmpty()) {
+                System.out.println("Nenhum receiving encontrado");
+            }
+    
+            return receivings.stream()
+                .flatMap(receiving -> {
+                    List<Items> itemsList = receiving.getItems();
+                    if (itemsList == null || itemsList.isEmpty()) {
+                        System.out.println("Nenhum item encontrado para o receiving ID: " + receiving.getReceivingID());
+                    }
+    
+                    return itemsList.stream().map(item -> 
+                        ItemDetailDTO.fromDto(
+                            usersMapper.toDto(item.getUsers()),
+                            itemsMapper.toDto(item),
+                            detailsMapper.toDto(item.getDetails()),
+                            costCenterMapper.toDto(item.getCostCenter()),
+                            contactsMapper.toDto(item.getUsers().getContacts()), 
+                            receivingMapper.toDto(receiving)
+                        )
+                    );
+                })
+                .collect(Collectors.toList());
+        } catch (Exception e) {
+            System.err.println("Erro ao acessar os dados: " + e.getMessage());
+            throw new Exception("Erro ao acessar os dados", e);
+        }
     }
+    
 
     public ListWithTotalValues<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {
         try {

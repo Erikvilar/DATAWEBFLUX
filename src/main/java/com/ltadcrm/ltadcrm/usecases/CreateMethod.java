@@ -78,7 +78,7 @@ public class CreateMethod {
 
             Receiving receiving = new Receiving();
             receivingMapper.updateDomainFromDTO(receiving, createItemsDTO.getReceivingDTO());
-            item.setReceiving(receiving);
+         
             receivingRepository.save(receiving);
 
             return "Item criado";
@@ -87,10 +87,6 @@ public class CreateMethod {
             return "Ocorreu um erro ao criar o item " + e;
         }
     }
-
-
-
-
 
     public CostCenterDTO createCostCenter(CostCenterDTO costCenterDTO) {
 
@@ -102,9 +98,15 @@ public class CreateMethod {
 
     public UsersDTO createUsers(UsersDTO usersDTO) {
 
+
         Users users = new Users();
         usersMapper.updateDomainFromDTO(users, usersDTO);
-        return usersMapper.toDto(usersRepository.save(users));
+        Contacts contactsSave = (contactsMapper.toEntity(usersDTO.getContactsDTO()));
+        users.setContacts(contactsRepository.save(contactsSave));
+        UsersDTO responseDTO =   usersMapper.toDto(usersRepository.save(users));
+        responseDTO.setContactsDTO(contactsMapper.toDto(contactsSave));
+        return responseDTO;
+
 
     }
 

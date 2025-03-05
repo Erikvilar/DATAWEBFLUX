@@ -61,6 +61,13 @@ public class ItemsDTO{
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
 
+    private DetailsDTO details;
+    
+    private Long userId;
+
+    private Long costCenterId;
+
+
 
 
 
