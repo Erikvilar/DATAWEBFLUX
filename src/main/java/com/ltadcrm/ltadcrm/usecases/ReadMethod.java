@@ -8,13 +8,19 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Items;
 import com.ltadcrm.ltadcrm.domain.Receiving;
+import com.ltadcrm.ltadcrm.domain.Users;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
+import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
+import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.ReceivingRepository;
+import com.ltadcrm.ltadcrm.repositories.UsersRepository;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
 import com.ltadcrm.ltadcrm.usecases.mapper.ContactsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.CostCenterMapper;
@@ -41,6 +47,8 @@ public class ReadMethod {
     private final ReceivingMapper receivingMapper;
     private final ReceivingRepository receivingRepository;
     private final ContactsRepository contactsRepository;
+    private final CostCenterRepository costCenterRepository;
+    private final UsersRepository usersRepository;
     @Transactional
     public List<ItemDetailDTO> list() throws Exception {
         try {
@@ -74,6 +82,27 @@ public class ReadMethod {
         }
     }
     
+    public List<CostCenterDTO> getCostCenterDTOs() throws Exception{
+        
+        try{    
+            List<CostCenter> costCentersList = costCenterRepository.findAll();
+            return costCentersList.stream().map(costCenterMapper::toDto).toList();
+
+        }catch(Exception e){
+            throw new Exception("ocorreu um erro ao trazer os projetos");
+        }
+                
+    }
+
+    public List<UsersDTO> getUsersDTOs() throws Exception{
+        try{
+            List<Users> usersList = usersRepository.findAll();
+            return usersList.stream().map(usersMapper::toDto).toList();
+        }catch(Exception e){
+            throw new Exception("Ocorreu um erro ao trazer os usuarios");
+        }
+      
+    }
 
     public ListWithTotalValues<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {
         try {

@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @RequestMapping("general")
@@ -52,34 +52,43 @@ public class GeneralController {
     private final CreateMethod createMethod;
     private final CreateListItems createListItems;
     private final UpdatedMethod updateMethod;
-   private final RegisterResponsibles registerResponsibles;
-
+    private final RegisterResponsibles registerResponsibles;
 
     @ResponseStatus(OK)
     @GetMapping
     public List<ItemDetailDTO> showAllDTO() throws Exception {
         return readMethod.list();
     }
-    
+
+    @ResponseStatus(OK)
+    @GetMapping("/costCenter")
+    public List<CostCenterDTO> costCenterDTOs() throws Exception {
+        return readMethod.getCostCenterDTOs();
+    }
+
+    @ResponseStatus(OK)
+    @GetMapping("/users")
+    public List<UsersDTO> usersDtos() throws Exception {
+        return readMethod.getUsersDTOs();
+    }
+
     @ResponseStatus(CREATED)
     @PostMapping("/create")
     public String saveMethod(@RequestBody CreateItemsDTO createItemsDTO) {
         return createMethod.create(createItemsDTO);
     }
-    
+
     @ResponseStatus(CREATED)
     @PostMapping("/create/costcenter")
-    public CostCenterDTO createCostCenter (@RequestBody CostCenterDTO costCenterDTO){
+    public CostCenterDTO createCostCenter(@RequestBody CostCenterDTO costCenterDTO) {
         return createMethod.createCostCenter(costCenterDTO);
     }
+
     @ResponseStatus(CREATED)
     @PostMapping("/create/list")
-    public String createListItems (@RequestBody ReceivingListDTO dto) throws Exception{
+    public String createListItems(@RequestBody ReceivingListDTO dto) throws Exception {
         return createListItems.create(dto);
     }
-
-
-
 
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/{id}")
@@ -94,7 +103,7 @@ public class GeneralController {
         return updateMethod.update(updateDTO);
 
     }
-    
+
     @ResponseStatus(OK)
     @GetMapping("/costcenter/{name}")
     public ListWithTotalValues<CostCenterByNameDTO> getMethodName(@PathVariable String name) throws Exception {
@@ -103,16 +112,16 @@ public class GeneralController {
 
     @ResponseStatus(CREATED)
     @PostMapping("/responsible")
-    public ResponsibleDTO registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception{
+    public ResponsibleDTO registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception {
         return registerResponsibles.register(responsibleDTO);
     }
-  
+
     @ResponseStatus(CREATED)
     @PostMapping("create/users")
-    public UsersDTO registerUsers(@RequestBody UsersDTO usersDTO) throws Exception{
-        return  createMethod.createUsers(usersDTO);
+    public UsersDTO registerUsers(@RequestBody UsersDTO usersDTO) throws Exception {
+        return createMethod.createUsers(usersDTO);
     }
-    
+
     @ResponseStatus(OK)
     @GetMapping("/responsible")
     public List<ResponsibleDTO> getAllResponsibles() {
@@ -121,10 +130,9 @@ public class GeneralController {
 
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/responsible/{id}")
-    public String deleteSomeResponsible(@PathVariable Long id){
-       return registerResponsibles.delete(id);
+    public String deleteSomeResponsible(@PathVariable Long id) {
+        return registerResponsibles.delete(id);
 
     }
-    
 
 }
