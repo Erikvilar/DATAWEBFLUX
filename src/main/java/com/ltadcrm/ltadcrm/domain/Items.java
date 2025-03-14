@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
@@ -33,7 +34,7 @@ public class Items implements Serializable{
 
     @Column(name = "patrimony")
     private String number;
-
+    @Lob
     @Column(name = "observation_item")
     private String observation;
 

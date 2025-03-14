@@ -4,11 +4,13 @@ package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class UpdateDTO {
 
  
@@ -18,7 +20,6 @@ public class UpdateDTO {
     private CostCenterDTO costCenterDTO;
     private ContactsDTO contactsDTO;
     private ReceivingDTO receivingDTO;
-    private String userLogged;
 
     
 

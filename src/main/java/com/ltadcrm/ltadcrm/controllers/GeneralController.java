@@ -87,6 +87,7 @@ public class GeneralController {
     @ResponseStatus(CREATED)
     @PostMapping("/create/list")
     public String createListItems(@RequestBody ReceivingListDTO dto) throws Exception {
+        log.info("Requisição ocorreu");
         return createListItems.create(dto);
     }
 
@@ -99,7 +100,7 @@ public class GeneralController {
 
     @ResponseStatus(ACCEPTED)
     @PutMapping("/update")
-    public String postMethodName(@RequestBody @Valid UpdateDTO updateDTO) {
+    public UpdateDTO postMethodName(@RequestBody @Valid UpdateDTO updateDTO) throws Exception{
         return updateMethod.update(updateDTO);
 
     }

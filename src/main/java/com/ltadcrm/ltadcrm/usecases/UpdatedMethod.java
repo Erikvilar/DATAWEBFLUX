@@ -6,7 +6,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ltadcrm.ltadcrm.domain.Contacts;
+import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
+import com.ltadcrm.ltadcrm.domain.Receiving;
+import com.ltadcrm.ltadcrm.domain.Users;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 
 import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
@@ -44,7 +48,7 @@ public class UpdatedMethod {
 
         @Transactional
 
-        public String update(UpdateDTO updateDTO) {
+        public UpdateDTO update(UpdateDTO updateDTO) throws Exception {
                 /*
                  * After update this line catch old value from Items -> details
                  */ Items oldObject = itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId())
@@ -52,40 +56,39 @@ public class UpdatedMethod {
                 final String oldValueFromObject = oldObject.getDetails().getDescription();
 
                 try {
+                        Items items = itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId())
+                                        .get();
+                        items.setCostCenter(costCenterRepository.findByName(updateDTO.getCostCenterDTO().getName())
+                                        .orElseThrow(() -> new RuntimeException(
+                                                        "ocorreu um erro ao buscar o projeto")));
 
-                        itemsRepository.save(itemsMapper.updateDomainFromDTO(
-                                        itemsRepository.findByIdWithPessimisticLock(updateDTO.getItemsDTO().getId())
-                                                        .get(),
+                       Items itemsSaved =  itemsRepository.save(itemsMapper.updateDomainFromDTO(
+                                        items,
                                         updateDTO.getItemsDTO()));
-                                        
-                        usersRepository.save(usersMapper.updateDomainFromDTO(
+
+                       Users users = usersRepository.save(usersMapper.updateDomainFromDTO(
                                         usersRepository.findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId())
                                                         .get(),
                                         updateDTO.getUsersDTO()));
 
-                        detailsRepository.save(detailsMapper.updateDomainFromDTO(
+                      Details details=  detailsRepository.save(detailsMapper.updateDomainFromDTO(
                                         detailsRepository.findById(updateDTO.getDetailsDTO().getId()).get(),
                                         updateDTO.getDetailsDTO()));
 
-                        contactsRepository.save(contactsMapper.updateDomainFromDTO(
+                       Contacts contacts = contactsRepository.save(contactsMapper.updateDomainFromDTO(
                                         contactsRepository
                                                         .findByIdWithPessimisticLock(updateDTO.getContactsDTO().getId())
                                                         .get(),
                                         updateDTO.getContactsDTO()));
 
-                        costCenterRepository.save(costCenterMapper.updateDomainFromDTO(
-                                        costCenterRepository.findByIdWithPessimisticLock(
-                                                        updateDTO.getCostCenterDTO().getId()).get(),
-                                        updateDTO.getCostCenterDTO()));
-
-                        receivingRepository.save(receivingMapper.updateDomainFromDTO(receivingRepository
+                       Receiving receiving = receivingRepository.save(receivingMapper.updateDomainFromDTO(receivingRepository
                                         .findByIdWithPessimisticLock(updateDTO.getReceivingDTO().getReceivingID())
                                         .get(), updateDTO.getReceivingDTO()));
 
-                        return "Dados salvos";
+                        return new UpdateDTO(itemsMapper.toDto(itemsSaved),usersMapper.toDto(users), detailsMapper.toDto(details), costCenterMapper.toDto(itemsSaved.getCostCenter()), contactsMapper.toDto(contacts), receivingMapper.toDto(receiving) );
 
                 } catch (Exception e) {
-                        return "Error " + e;
+                        throw new Exception("ocorreu um erro ao atualizar os items" + e);
                 }
         }
 
