@@ -35,36 +35,39 @@ public class Account implements UserDetails {
     private String login;
 
     private String password;
-    
+
     private String avatar;
 
     private AccountRoles role;
 
-
-    public Account (String login, String password, String avatar, AccountRoles role){
-        this.login=login;
-        this.password=password;
+    public Account(String login, String password, String avatar, AccountRoles role) {
+        this.login = login;
+        this.password = password;
         this.avatar = avatar;
-        this.role=role;
-       
+        this.role = role;
 
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-            if(this.role == AccountRoles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
-            else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == AccountRoles.ADMIN)
+            return List.of(
+            new SimpleGrantedAuthority("ROLE_ADMIN"), 
+            new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getUsername() {
-            return login;
+        return login;
     }
 
     @Override
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         return true;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -72,13 +75,12 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;  
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; 
+        return true;
     }
-
 
 }

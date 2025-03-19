@@ -31,6 +31,8 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 
 import static org.springframework.http.HttpStatus.OK;
 
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +41,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Slf4j
 @RequestMapping("general")
@@ -71,12 +73,7 @@ public class GeneralController {
     public List<UsersDTO> usersDtos() throws Exception {
         return readMethod.getUsersDTOs();
     }
-
-    @ResponseStatus(CREATED)
-    @PostMapping("/create")
-    public String saveMethod(@RequestBody CreateItemsDTO createItemsDTO) {
-        return createMethod.create(createItemsDTO);
-    }
+ 
 
     @ResponseStatus(CREATED)
     @PostMapping("/create/costcenter")
@@ -84,9 +81,9 @@ public class GeneralController {
         return createMethod.createCostCenter(costCenterDTO);
     }
 
-    @ResponseStatus(CREATED)
+    
     @PostMapping("/create/list")
-    public String createListItems(@RequestBody ReceivingListDTO dto) throws Exception {
+    public ResponseEntity<String> createListItems(@RequestBody ReceivingListDTO dto) throws Exception {
         log.info("Requisição ocorreu");
         return createListItems.create(dto);
     }

@@ -20,4 +20,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
              u where u.id_users = :id
              """, nativeQuery = true)
     Optional<Users> findByIdWithPessimisticLock(@Param("id") Long id);
+
+   Optional<Users> findByUserName(String userName);
 }

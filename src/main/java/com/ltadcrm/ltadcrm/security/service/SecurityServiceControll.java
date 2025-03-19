@@ -52,9 +52,9 @@ public class SecurityServiceControll {
            
             this.accountRepository.save(user);
             log.info("Usuário ,{} foi registrado no sistema", register.login());
-            return new RegisterDTO(encryptedPassword, encryptedPassword, encryptedPassword, register.role());
+            return new RegisterDTO(register.login(), encryptedPassword,register.avatar(), register.role());
         } catch (Exception e) {
-            throw new IllegalAccessError("Ocorreu um erro ao fazer o cadastro deste usuário no sistema");
+            throw new IllegalAccessError("Ocorreu um erro ao fazer o cadastro deste usuário no sistema"+e);
         }
     }
 }

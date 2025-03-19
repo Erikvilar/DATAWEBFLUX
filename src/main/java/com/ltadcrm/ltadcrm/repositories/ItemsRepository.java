@@ -31,4 +31,8 @@ public interface ItemsRepository extends JpaRepository<Items, Long> {
             """, nativeQuery= true)
     Optional<Items> findByIdWithPessimisticLock(@Param("id") Long id);
 
+
+
+    Optional<Items> findBynumber(String number);
+
 }

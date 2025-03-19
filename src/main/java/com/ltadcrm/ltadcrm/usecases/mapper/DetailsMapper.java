@@ -12,4 +12,5 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.DetailsDTO;
 public interface DetailsMapper {
     Details updateDomainFromDTO(@MappingTarget Details details, DetailsDTO detailsDTO);
     DetailsDTO toDto(Details details);
+    Details toEntity(DetailsDTO detailsDTO);
 }

@@ -14,5 +14,6 @@ public interface ItemsMapper {
     Items updateDomainFromDTO(@MappingTarget Items item, ItemsDTO dto);
 
     ItemsDTO toDto(Items items);
+    Items toEntity(ItemsDTO itemsDTO);
 
 }
