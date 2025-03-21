@@ -3,6 +3,7 @@ package com.ltadcrm.ltadcrm.domain;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +21,20 @@ import lombok.NoArgsConstructor;
 public class Responsible implements Serializable {
     
 
-   
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String occupation;
+    @Column(name= "id_responsible")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long responsibleID;
 
+    @Column(name="responsible_name")
+    private String nameResponsible; 
+
+    @Column(name= "ocuppation_responsible")
+    private String occupationResponsible;
+    
+    @Column(name= "email_user")
+    private String emailResponsible;
+
+    @Column(name= "phone_user")
+    private String phoneResponsible;
 
 }

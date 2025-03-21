@@ -12,6 +12,6 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 public interface UsersMapper {
         Users updateDomainFromDTO(@MappingTarget Users users, UsersDTO usersDTO);
        
-        @Mapping(source = "contacts", target = "contactsDTO")
+
         UsersDTO toDto(Users users);
 }

@@ -8,7 +8,6 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ReceivingListDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ResponsibleDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
-import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CreateItemsDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UpdateDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
@@ -55,6 +54,7 @@ public class GeneralController {
     private final CreateListItems createListItems;
     private final UpdatedMethod updateMethod;
     private final RegisterResponsibles registerResponsibles;
+    
 
     @ResponseStatus(OK)
     @GetMapping
@@ -111,7 +111,7 @@ public class GeneralController {
     @ResponseStatus(CREATED)
     @PostMapping("/responsible")
     public ResponsibleDTO registerResponsible(@RequestBody ResponsibleDTO responsibleDTO) throws Exception {
-        return registerResponsibles.register(responsibleDTO);
+        return createMethod.createResponsible(responsibleDTO);
     }
 
     @ResponseStatus(CREATED)

@@ -62,8 +62,11 @@ public class ItemsDTO{
     private LocalDateTime updateIn;
 
     private DetailsDTO detailsDTO;
-    
+
+
     private Long userId;
+
+    private Long responsibleId;
 
     private Long costCenterId;
 

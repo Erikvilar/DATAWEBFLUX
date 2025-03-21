@@ -16,9 +16,9 @@ public class UpdateDTO {
  
     private ItemsDTO itemsDTO;
     private UsersDTO usersDTO;
+    private ResponsibleDTO responsibleDTO;
     private DetailsDTO detailsDTO;
     private CostCenterDTO costCenterDTO;
-    private ContactsDTO contactsDTO;
     private ReceivingDTO receivingDTO;
 
     

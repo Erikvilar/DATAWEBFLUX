@@ -1,17 +1,15 @@
 package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
@@ -20,13 +18,35 @@ public class ItemDetailDTO {
 
     // Dados de 'tb_users'
     @JsonProperty("id_usuario")
-    private Long id;
+    private Long userID;
 
     @JsonProperty("nome_usuario")
     private String userName;
 
     @JsonProperty("tipo_usuario")
     private String userType;
+
+    @JsonProperty("email_usuario")
+    private String emailUser;
+
+    @JsonProperty("telefone_usuario")
+    private String phoneUser;
+
+
+    @JsonProperty("id_responsavel_geral")
+    private Long responsibleID;
+
+    @JsonProperty("nome_responsavel_geral")
+    private String nameResponsible;
+
+    @JsonProperty("ocupacao_responsavel")
+    private String occupationResponsible;
+
+    @JsonProperty("email_responsavel_geral")
+    private String emailResponsible;
+
+    @JsonProperty("telefone_responsavel_geral")
+    private String phoneResponsible;
 
     // Dados de 'tb_items'
     @JsonProperty("id_item")
@@ -99,23 +119,7 @@ public class ItemDetailDTO {
     @JsonProperty("data_fim_centro_custo")
     private Date costCenterEndDate;
 
-    // Dados de 'tb_contact'
-    @JsonProperty("id_contato")
-    private Long contactId;
-
-    @JsonProperty("email_contato")
-    private String contactEmail;
-
-    @JsonProperty("responsavel_geral")
-    private String generalResponsible;
-
-    @JsonProperty("ocupacao_contato")
-    private String contactOccupation;
-
-    @JsonProperty("telefone_contato")
-    private String contactPhone;
-
-    //dados de ´´tb_receiving´
+    // dados de ´´tb_receiving´
     @JsonProperty("id_recebimento")
     private Long receivingID;
     @JsonProperty("termo")
@@ -132,68 +136,71 @@ public class ItemDetailDTO {
     private String pdfOrder;
     @JsonProperty("empSIAFI")
     private String empSiafi;
-    
+
     @JsonProperty("updateIn")
     private LocalDateTime updateIn;
 
-    public static ItemDetailDTO fromDto(UsersDTO usersDTO, ItemsDTO itemsDTO, DetailsDTO detailsDTO, CostCenterDTO costCenterDTO, ContactsDTO contactsDTO, ReceivingDTO receivingDTO) {
-        if (usersDTO == null || itemsDTO == null || detailsDTO == null || costCenterDTO == null || contactsDTO == null || receivingDTO == null) {
+    public static ItemDetailDTO fromDto(UsersDTO usersDTO, ResponsibleDTO responsibleDTO, ItemsDTO itemsDTO,
+            DetailsDTO detailsDTO, CostCenterDTO costCenterDTO, ReceivingDTO receivingDTO) {
+        if (usersDTO == null || itemsDTO == null || detailsDTO == null || costCenterDTO == null
+                || receivingDTO == null) {
             System.out.println("Algum dos DTOs está nulo");
         }
-       
-        return new ItemDetailDTO(
-            // Dados de 'tb_users'
-            usersDTO.getId(),
-            usersDTO.getUserName(),
-            usersDTO.getUserType(),
-    
-            // Dados de 'tb_items'
-            itemsDTO.getId(),
-            itemsDTO.getNfInvoice(),
-            itemsDTO.getNumber(),
-            itemsDTO.getProcessSEI(),
-            itemsDTO.getObservation(),
-            itemsDTO.getPathImage(),
-            itemsDTO.getOrder(),
-            itemsDTO.getSde(),
-            itemsDTO.getStatus(),
-            itemsDTO.getSituationRegister(),
-            itemsDTO.getValue(),
-            itemsDTO.getLastModification(),
-            // Dados de 'tb_description'
-            detailsDTO.getId(),
-            detailsDTO.getBrand(),
-            detailsDTO.getDescription(),
-            detailsDTO.getLocal(),
-            detailsDTO.getModel(),
-            detailsDTO.getSerial(),
 
-            // Dados de 'tb_cost_center'
-            costCenterDTO.getId(),
-            costCenterDTO.getName(),
-            costCenterDTO.getIdentification(),
-            costCenterDTO.getInitialDate(),
-            costCenterDTO.getEndDate(),
-    
-            // Dados de 'tb_contact'
-            usersDTO.getContactsDTO().getId(),
-            usersDTO.getContactsDTO().getEmail(),
-            usersDTO.getContactsDTO().getResponsibleGeneral(),
-            usersDTO.getContactsDTO().getOccupation(),
-            usersDTO.getContactsDTO().getPhone(),
-    
-            // Dados de 'tb_receiving'
-            receivingDTO.getReceivingID(),
-            receivingDTO.getReceivingCode(),
-            receivingDTO.getLotation(),
-            receivingDTO.getSupplier(),
-            receivingDTO.getEmail(),
-            receivingDTO.getPdfTerm(),
-            receivingDTO.getPdfOrder(),
-            receivingDTO.getEmpSIAFI(),
-            itemsDTO.getUpdateIn()
-        );
+        return new ItemDetailDTO(
+                // Dados de 'tb_users'
+                usersDTO.getUserID(),
+                usersDTO.getUserName(),
+                usersDTO.getUserType(),
+                usersDTO.getEmailUser(),
+                usersDTO.getPhoneUser(),
+
+                responsibleDTO.getResponsibleID(),
+                responsibleDTO.getNameResponsible(),
+                responsibleDTO.getOccupationResponsible(),
+                responsibleDTO.getEmailResponsible(),
+                responsibleDTO.getPhoneResponsible(),
+
+                // Dados de 'tb_items'
+                itemsDTO.getId(),
+                itemsDTO.getNfInvoice(),
+                itemsDTO.getNumber(),
+                itemsDTO.getProcessSEI(),
+                itemsDTO.getObservation(),
+                itemsDTO.getPathImage(),
+                itemsDTO.getOrder(),
+                itemsDTO.getSde(),
+                itemsDTO.getStatus(),
+                itemsDTO.getSituationRegister(),
+                itemsDTO.getValue(),
+                itemsDTO.getLastModification(),
+                // Dados de 'tb_description'
+                detailsDTO.getId(),
+                detailsDTO.getBrand(),
+                detailsDTO.getDescription(),
+                detailsDTO.getLocal(),
+                detailsDTO.getModel(),
+                detailsDTO.getSerial(),
+
+                // Dados de 'tb_cost_center'
+                costCenterDTO.getId(),
+                costCenterDTO.getName(),
+                costCenterDTO.getIdentification(),
+                costCenterDTO.getInitialDate(),
+                costCenterDTO.getEndDate(),
+
+                // Dados de 'tb_contact'
+
+                // Dados de 'tb_receiving'
+                receivingDTO.getReceivingID(),
+                receivingDTO.getReceivingCode(),
+                receivingDTO.getLotation(),
+                receivingDTO.getSupplier(),
+                receivingDTO.getEmail(),
+                receivingDTO.getPdfTerm(),
+                receivingDTO.getPdfOrder(),
+                receivingDTO.getEmpSIAFI(),
+                itemsDTO.getUpdateIn());
     }
-   
 
 }

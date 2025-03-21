@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
-import com.ltadcrm.ltadcrm.domain.Contacts;
+
 import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Details;
 import com.ltadcrm.ltadcrm.domain.Items;
@@ -70,11 +70,7 @@ public class LoggerCapture {
         }
     }
 
-    public void captureContacts(Contacts newValues, Contacts oldValues) {
-        if (newValues == null || oldValues == null) {
-            return; // Evita erro caso algum objeto seja nulo
-        }
-    }
+  
 
     private void compare(String entityName, String fieldName, String oldValue, String newValue, Long entityId,
             String userLog) {

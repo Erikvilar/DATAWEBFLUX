@@ -43,7 +43,7 @@ public class SecurityServiceControll {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
             var auth = authenticationManager.authenticate(usernamePassword);
     
-            // Verifica se a autenticação retornou um principal válido
+  
             if (auth == null || auth.getPrincipal() == null) {
                 log.warn("Autenticação falhou para {}", data.login());
                 throw new IllegalArgumentException("Autenticação falhou!");
@@ -61,7 +61,7 @@ public class SecurityServiceControll {
                 throw new IllegalStateException("Erro interno: conta inválida.");
             }
     
-            // Se já estiver logado, lança exceção
+         
             if (usuariosLogados.containsKey(account.getLogin())) {
                 log.warn("Usuário {} já está logado e tentou novo acesso!", account.getLogin());
                 throw new IllegalStateException("Usuário já autenticado!");
@@ -82,8 +82,6 @@ public class SecurityServiceControll {
             }
     
             var userLogged = new ToFrontDTO(login.getAvatar(), login.getLogin(), token, login.getRole().toString());
-    
-            // Registra usuário logado
             usuariosLogados.put(account.getLogin(), "LOGADO");
             log.info("Usuário {} fez login com sucesso.", account.getLogin());
     

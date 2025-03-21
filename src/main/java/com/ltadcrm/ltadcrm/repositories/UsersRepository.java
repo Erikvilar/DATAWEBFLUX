@@ -12,7 +12,7 @@ import com.ltadcrm.ltadcrm.domain.Users;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
-    Optional<Users> findAllById(Long id);
+
 
     @Query(value = """
             select u.*

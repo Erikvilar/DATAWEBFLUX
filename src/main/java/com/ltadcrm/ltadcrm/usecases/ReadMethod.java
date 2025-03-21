@@ -4,7 +4,7 @@ package com.ltadcrm.ltadcrm.usecases;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataAccessException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +16,18 @@ import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.ItemDetailDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.UsersDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterByNameDTO;
 import com.ltadcrm.ltadcrm.domain.DTO.domainDTO.CostCenterDTO;
-import com.ltadcrm.ltadcrm.repositories.ContactsRepository;
+
 import com.ltadcrm.ltadcrm.repositories.CostCenterRepository;
 import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.ReceivingRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
 import com.ltadcrm.ltadcrm.responses.ListWithTotalValues;
-import com.ltadcrm.ltadcrm.usecases.mapper.ContactsMapper;
+
 import com.ltadcrm.ltadcrm.usecases.mapper.CostCenterMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.DetailsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ItemsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
+import com.ltadcrm.ltadcrm.usecases.mapper.ResponsibleMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
 
@@ -42,12 +43,13 @@ public class ReadMethod {
     private final ItemsMapper itemsMapper;
     private final UsersMapper usersMapper;
     private final DetailsMapper detailsMapper;
+    private final ResponsibleMapper responsibleMapper;
     private final CostCenterMapper costCenterMapper;
-    private final ContactsMapper contactsMapper;
+
     private final ReceivingMapper receivingMapper;
     private final ReceivingRepository receivingRepository;
-    private final ContactsRepository contactsRepository;
     private final CostCenterRepository costCenterRepository;
+
     private final UsersRepository usersRepository;
     @Transactional
     public List<ItemDetailDTO> list() throws Exception {
@@ -67,10 +69,10 @@ public class ReadMethod {
                     return itemsList.stream().map(item -> 
                         ItemDetailDTO.fromDto(  
                             usersMapper.toDto(item.getUsers()),
+                            responsibleMapper.toDto(item.getResponsible()),
                             itemsMapper.toDto(item),
                             detailsMapper.toDto(item.getDetails()),
                             costCenterMapper.toDto(item.getCostCenter()),
-                            contactsMapper.toDto(item.getUsers().getContacts()), 
                             receivingMapper.toDto(receiving)
                         )
                     );
