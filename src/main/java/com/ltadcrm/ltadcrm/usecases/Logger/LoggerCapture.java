@@ -20,7 +20,7 @@ public class LoggerCapture {
 
     private final AuditService auditService;
 
-    public void captureItems(Items newValues, Items oldValues, String userLog) throws Exception {
+    public void captureItems(String code, Items newValues, Items oldValues, String userLog) throws Exception {
 
         if (newValues == null || oldValues == null) {
 
@@ -30,20 +30,20 @@ public class LoggerCapture {
         Long entityId = newValues.getId();
         String entityName = newValues.getClass().getSimpleName();
 
-        compare(entityName, "Observation", oldValues.getObservation(), newValues.getObservation(), entityId, userLog);
-        compare(entityName, "SDE", oldValues.getSde().toString(), newValues.getSde().toString(), entityId, userLog);
-        compare(entityName, "Process SEI", oldValues.getProcessSEI(), newValues.getProcessSEI(), entityId, userLog);
-        compare(entityName, "Order Origin", oldValues.getOrder(), newValues.getOrder(), entityId, userLog);
-        compare(entityName, "Status", oldValues.getStatus(), newValues.getStatus(), entityId, userLog);
-        compare(entityName, "Situation Register", oldValues.getSituationRegister(),
+        compare(code, entityName, "Observation", oldValues.getObservation(), newValues.getObservation(), entityId, userLog);
+        compare(code, entityName, "SDE", oldValues.getSde().toString(), newValues.getSde().toString(), entityId, userLog);
+        compare(code, entityName, "Process SEI", oldValues.getProcessSEI(), newValues.getProcessSEI(), entityId, userLog);
+        compare(code, entityName, "Order Origin", oldValues.getOrder(), newValues.getOrder(), entityId, userLog);
+        compare(code, entityName, "Status", oldValues.getStatus(), newValues.getStatus(), entityId, userLog);
+        compare(code, entityName, "Situation Register", oldValues.getSituationRegister(),
                 newValues.getSituationRegister(), entityId, userLog);
-        compare(entityName, "NF Invoice", oldValues.getNfInvoice(), newValues.getNfInvoice(), entityId, userLog);
-        compare(entityName, "Value", oldValues.getValue().toString(), newValues.getValue().toString(), entityId,
+        compare(code, entityName, "NF Invoice", oldValues.getNfInvoice(), newValues.getNfInvoice(), entityId, userLog);
+        compare(code, entityName, "Value", oldValues.getValue().toString(), newValues.getValue().toString(), entityId,
                 userLog);
 
     }
 
-    public void captureDetails(Details newValues, Details oldValues, String userLog) {
+    public void captureDetails(String code, Details newValues, Details oldValues, String userLog) {
         if (newValues == null || oldValues == null) {
             return; // Evita erro caso algum objeto seja nulo
         }
@@ -51,11 +51,11 @@ public class LoggerCapture {
 
         String entityName = newValues.getClass().getSimpleName();
 
-        compare(entityName, "Model", oldValues.getModel(), newValues.getModel(), entityId, userLog);
-        compare(entityName, "Brand", oldValues.getBrand(), newValues.getBrand(), entityId, userLog);
-        compare(entityName, "Serial", oldValues.getSerial(), newValues.getSerial(), entityId, userLog);
-        compare(entityName, "Description", oldValues.getDescription(), newValues.getDescription(), entityId, userLog);
-        compare(entityName, "Local", oldValues.getLocal(), newValues.getLocal(), entityId, userLog);
+        compare(code, entityName, "Model", oldValues.getModel(), newValues.getModel(), entityId, userLog);
+        compare(code, entityName, "Brand", oldValues.getBrand(), newValues.getBrand(), entityId, userLog);
+        compare(code, entityName, "Serial", oldValues.getSerial(), newValues.getSerial(), entityId, userLog);
+        compare(code, entityName, "Description", oldValues.getDescription(), newValues.getDescription(), entityId, userLog);
+        compare(code, entityName, "Local", oldValues.getLocal(), newValues.getLocal(), entityId, userLog);
     }
 
     public void captureUsers(Users newValues, Users oldValues) {
@@ -72,12 +72,12 @@ public class LoggerCapture {
 
   
 
-    private void compare(String entityName, String fieldName, String oldValue, String newValue, Long entityId,
+    private void compare(String code, String entityName, String fieldName, String oldValue, String newValue, Long entityId,
             String userLog) {
         if (!Objects.equals(oldValue, newValue)) {
             log.info("Alteração detectada: Entidade={}, Campo={}, De='{}' Para='{}'", entityName, fieldName, oldValue,
                     newValue);
-            auditService.logChange(entityName, entityId, fieldName, oldValue, newValue, userLog);
+            auditService.logChange(code, entityName, entityId, fieldName, oldValue, newValue, userLog);
         } else {
             log.debug("Nenhuma alteração no campo {} da entidade {}", fieldName, entityName);
         }

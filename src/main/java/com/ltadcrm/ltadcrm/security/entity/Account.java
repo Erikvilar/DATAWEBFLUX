@@ -38,13 +38,18 @@ public class Account implements UserDetails {
 
     private String avatar;
 
+    private Boolean isLogged;
+
     private AccountRoles role;
 
-    public Account(String login, String password, String avatar, AccountRoles role) {
+    public Account(String login, String password, String avatar, Boolean isLogged, AccountRoles role) {
         this.login = login;
         this.password = password;
         this.avatar = avatar;
+        this.isLogged = isLogged;
         this.role = role;
+        
+        
 
     }
 

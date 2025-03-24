@@ -67,10 +67,10 @@ public class UpdatedMethod {
                         .orElseThrow(() -> new RuntimeException(
                                 "Não foi encontrado o ID de responsavel geral"));
 
-                        loggerCapture.captureItems(itemsMapper.toEntity(updateDTO.getItemsDTO()), itemsOld,
+                        loggerCapture.captureItems(itemsOld.getNumber(), itemsMapper.toEntity(updateDTO.getItemsDTO()), itemsOld,
                                         updateDTO.getItemsDTO().getLastModification().get(0));
 
-                        loggerCapture.captureDetails(detailsMapper.toEntity(updateDTO.getDetailsDTO()), detailsOld,
+                        loggerCapture.captureDetails(itemsOld.getNumber(), detailsMapper.toEntity(updateDTO.getDetailsDTO()), detailsOld,
                                         updateDTO.getItemsDTO().getLastModification().get(0));
 
 

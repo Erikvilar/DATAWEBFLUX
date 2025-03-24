@@ -5,14 +5,15 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import org.springframework.beans.factory.annotation.Value;
-
-
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.impl.ClaimsHolder;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ltadcrm.ltadcrm.security.entity.Account;
 
 @Service
@@ -29,6 +30,7 @@ public class TokenService {
                     .withSubject(account.getLogin())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
+              
             return token.trim();
 
         } catch (JWTCreationException exception) {
@@ -57,5 +59,11 @@ public class TokenService {
                 .plusHours(12)
                 .toInstant();
     }
+    
+    public String getUserByToken(String token){
+        DecodedJWT decoded =  JWT.decode(token);
+        return decoded.getSubject();
+        
 
+    }
 }

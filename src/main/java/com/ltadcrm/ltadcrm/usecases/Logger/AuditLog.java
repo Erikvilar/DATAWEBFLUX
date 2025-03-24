@@ -19,6 +19,7 @@ public class AuditLog {
 
     private Long id;
     private String userLog;
+    private String code;
     private String entityName;
     private Long entityId;
     private String fieldName;
