@@ -1,5 +1,6 @@
 package com.ltadcrm.ltadcrm.domain.DTO.domainDTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -117,14 +118,14 @@ public class ItemDetailDTO {
     private Date costCenterStartDate;
 
     @JsonProperty("data_fim_centro_custo")
-    private Date costCenterEndDate;
+    private Date  costCenterEndDate;
 
     // dados de ´´tb_receiving´
     @JsonProperty("id_recebimento")
     private Long receivingID;
     @JsonProperty("termo")
     private Long receivingCode;
-    @JsonProperty("lotação")
+    @JsonProperty("lotacao")
     private String lotation;
     @JsonProperty("fornecedor")
     private String supplier;

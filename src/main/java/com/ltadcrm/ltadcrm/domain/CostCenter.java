@@ -2,6 +2,7 @@ package com.ltadcrm.ltadcrm.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.hibernate.annotations.Fetch;

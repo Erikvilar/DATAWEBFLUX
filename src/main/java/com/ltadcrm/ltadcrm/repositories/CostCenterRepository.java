@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ltadcrm.ltadcrm.domain.CostCenter;
-import com.ltadcrm.ltadcrm.domain.Items;
+
 
 
 @Repository

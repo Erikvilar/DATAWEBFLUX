@@ -15,7 +15,7 @@ public class ReceivingDTO {
     private Long receivingID;
     @JsonProperty("termo")
     private Long receivingCode;
-    @JsonProperty("lotação")
+    @JsonProperty("lotacao")
     private String lotation;
     @JsonProperty("fornecedor")
     private String supplier;
