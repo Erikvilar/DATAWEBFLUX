@@ -1,5 +1,6 @@
 package com.ltadcrm.ltadcrm.usecases;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,8 @@ import com.ltadcrm.ltadcrm.repositories.ItemsRepository;
 import com.ltadcrm.ltadcrm.repositories.ReceivingRepository;
 import com.ltadcrm.ltadcrm.repositories.ResponsibleRepository;
 import com.ltadcrm.ltadcrm.repositories.UsersRepository;
-
-
-
+import com.ltadcrm.ltadcrm.usecases.Logger.AuditLog;
+import com.ltadcrm.ltadcrm.usecases.Logger.AuditLogRepository;
 import com.ltadcrm.ltadcrm.usecases.mapper.DetailsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ItemsMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
@@ -48,8 +48,7 @@ public class CreateListItems {
     private final ItemsMapper itemsMapper;
 
     private final DetailsMapper detailsMapper;
-  
-
+    private final AuditLogRepository logger;
     private final ReceivingMapper receivingMapper;
 
     @Transactional
@@ -91,7 +90,7 @@ public class CreateListItems {
                 items.setDetails(detailsRepository.save(details));
 
                 items.setReceiving(receivingSave);
-
+                logger.save( new AuditLog(null, items.getNumber(),"",0L, "","",items.getDetails().getDescription(),"create",dto.getLogUser(), LocalDateTime.now()));
                 return itemsRepository.save(items);
             }).toList();
 

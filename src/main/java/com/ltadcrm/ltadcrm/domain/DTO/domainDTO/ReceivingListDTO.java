@@ -17,4 +17,5 @@ public class ReceivingListDTO {
     private ReceivingDTO receivingDTO;
     
     private List<ItemsDTO> items;
+    private String logUser;
 }

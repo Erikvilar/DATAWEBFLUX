@@ -14,7 +14,7 @@ public class AuditService {
     private final AuditLogRepository auditLogRepository;
   
 
-    public void logChange(String code,String entityName, Long entityId, String fieldName, String oldValue, String newValue, String userLog) {
+    public void logChange(String code,String entityName, Long entityId, String fieldName, String oldValue, String newValue,String type, String userLog) {
 
         AuditLog log = new AuditLog();
         log.setUserLog(userLog);
@@ -24,6 +24,7 @@ public class AuditService {
         log.setFieldName(fieldName);
         log.setOldValue(oldValue);
         log.setNewValue(newValue);
+        log.setType(type);
         log.setTimestamp(LocalDateTime.now());
         auditLogRepository.save(log);
       

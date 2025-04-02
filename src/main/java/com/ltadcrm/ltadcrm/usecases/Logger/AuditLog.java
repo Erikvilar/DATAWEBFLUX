@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Getter
 @Setter
@@ -18,15 +20,15 @@ public class AuditLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String userLog;
     private String code;
     private String entityName;
     private Long entityId;
     private String fieldName;
     private String oldValue;
     private String newValue;
+    private String type;
+    private String userLog;
     private LocalDateTime timestamp;
-
     public AuditLog() {
         this.timestamp = LocalDateTime.now();
     }
