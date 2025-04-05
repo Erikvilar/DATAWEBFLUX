@@ -32,6 +32,7 @@ public class Receiving implements Serializable{
     private String email;
     private String pdfTerm;
     private String pdfOrder;
+    private String orderCode;
     private String empSIAFI;
 
     @OneToMany(mappedBy = "receiving", fetch = FetchType.EAGER)

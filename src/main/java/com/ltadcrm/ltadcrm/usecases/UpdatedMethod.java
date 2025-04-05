@@ -4,6 +4,7 @@ package com.ltadcrm.ltadcrm.usecases;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ltadcrm.ltadcrm.domain.CostCenter;
 import com.ltadcrm.ltadcrm.domain.Details;
@@ -67,11 +68,20 @@ public class UpdatedMethod {
                         .orElseThrow(() -> new RuntimeException(
                                 "Não foi encontrado o ID de responsavel geral"));
 
+                        /**
+                         * Sessão de captura de logs
+                        */
                         loggerCapture.captureItems(itemsOld.getNumber(), itemsMapper.toEntity(updateDTO.getItemsDTO()),  itemsOld,"update",
                                         updateDTO.getItemsDTO().getLastModification().get(0));
 
                         loggerCapture.captureDetails(itemsOld.getNumber(), detailsMapper.toEntity(updateDTO.getDetailsDTO()), detailsOld,"update",
                                         updateDTO.getItemsDTO().getLastModification().get(0));
+
+                        loggerCapture.captureUsers(itemsOld.getNumber(), usersMapper.toEntity(updateDTO.getUsersDTO()) , itemsOld.getUsers(), "update", updateDTO.getItemsDTO().getLastModification().get(0));
+
+                        loggerCapture.captureCostCenter(itemsOld.getNumber(),costCenterMapper.toEntity(updateDTO.getCostCenterDTO()), itemsOld.getCostCenter(), "update", updateDTO.getItemsDTO().getLastModification().get(0));
+
+
 
 
                         itemsOld.setCostCenter(costCenterOld);

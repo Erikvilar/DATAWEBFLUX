@@ -1,9 +1,7 @@
 package com.ltadcrm.ltadcrm.usecases;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +28,6 @@ import com.ltadcrm.ltadcrm.usecases.mapper.ReceivingMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.ResponsibleMapper;
 import com.ltadcrm.ltadcrm.usecases.mapper.UsersMapper;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +48,7 @@ public class ReadMethod {
     private final CostCenterRepository costCenterRepository;
 
     private final UsersRepository usersRepository;
+
     @Transactional
     public List<ItemDetailDTO> list() throws Exception {
         try {
@@ -58,52 +56,57 @@ public class ReadMethod {
             if (receivings.isEmpty()) {
                 System.out.println("Nenhum receiving encontrado");
             }
-    
+
             return receivings.stream()
-                .flatMap(receiving -> {
-                    List<Items> itemsList = receiving.getItems();
-                    if (itemsList == null || itemsList.isEmpty()) {
-                        System.out.println("Nenhum item encontrado para o receiving ID: " + receiving.getReceivingID());
-                    }
-    
-                    return itemsList.stream().map(item -> 
-                        ItemDetailDTO.fromDto(  
+                    .flatMap(receiving -> {
+
+                        List<Items> filteredItems = receiving.getItems()
+                                .stream()
+                                .filter(item -> !"Excluido".equalsIgnoreCase(item.getSituationRegister()))
+                                .collect(Collectors.toList());
+
+                        if (filteredItems == null || filteredItems.isEmpty()) {
+                            System.out.println(
+                                    "Nenhum item encontrado para o receiving ID: " + receiving.getReceivingID());
+                        }
+
+                        return filteredItems.stream().map(item ->
+
+                    ItemDetailDTO.fromDto(
                             usersMapper.toDto(item.getUsers()),
                             responsibleMapper.toDto(item.getResponsible()),
                             itemsMapper.toDto(item),
                             detailsMapper.toDto(item.getDetails()),
                             costCenterMapper.toDto(item.getCostCenter()),
-                            receivingMapper.toDto(receiving)
-                        )
-                    );
-                })
-                .collect(Collectors.toList());
+                            receivingMapper.toDto(receiving)));
+                    })
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             System.err.println("Erro ao acessar os dados: " + e.getMessage());
             throw new Exception("Erro ao acessar os dados", e);
         }
     }
-    
-    public List<CostCenterDTO> getCostCenterDTOs() throws Exception{
-        
-        try{    
+
+    public List<CostCenterDTO> getCostCenterDTOs() throws Exception {
+
+        try {
             List<CostCenter> costCentersList = costCenterRepository.findAll();
             return costCentersList.stream().map(costCenterMapper::toDto).toList();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception("ocorreu um erro ao trazer os projetos");
         }
-                
+
     }
 
-    public List<UsersDTO> getUsersDTOs() throws Exception{
-        try{
+    public List<UsersDTO> getUsersDTOs() throws Exception {
+        try {
             List<Users> usersList = usersRepository.findAll();
             return usersList.stream().map(usersMapper::toDto).toList();
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception("Ocorreu um erro ao trazer os usuarios");
         }
-      
+
     }
 
     public ListWithTotalValues<CostCenterByNameDTO> readItemsByCostCenter(String name) throws Exception {

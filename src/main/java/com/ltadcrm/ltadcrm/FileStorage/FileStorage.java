@@ -16,7 +16,7 @@ import com.ltadcrm.ltadcrm.exceptions.FileStorageException;
 @Transactional(rollbackFor = IOException.class)
 public class FileStorage {
 
-    public String saveFile(MultipartFile file, String directory) {
+    public String saveFile(MultipartFile file, String directory,String optionalInformation) {
         Path uploadDir = Path.of("C:/nginx/data", directory);
         if (!Files.exists(uploadDir)) {
             try {
@@ -27,7 +27,7 @@ public class FileStorage {
         }
 
         // Gerar nome único para o arquivo
-        String fileName = LocalDate.now() + "-" + file.getOriginalFilename();
+        String fileName = LocalDate.now() + "-" +optionalInformation+ file.getOriginalFilename().toLowerCase();
         Path filePath = uploadDir.resolve(fileName);
 
         // Tentar salvar o arquivo
@@ -38,11 +38,11 @@ public class FileStorage {
             throw new FileStorageException("Falha ao salvar o arquivo " + fileName, e);
         }
         if (directory.equals("patrimonios")) {
-            return "http://10.2.128.20/data/patrimonios/" + fileName;
+            return "http://10.2.129.243/data/patrimonios/" + fileName;
         } else if (directory.equals("pedidos")) {
-            return "http://10.2.128.20/data/pedidos/" + fileName;
+            return "http://10.2.129.243/data/pedidos/" + fileName;
         } else {
-            return "http://10.2.128.20/data/termos/" + fileName;
+            return "http://10.2.129.243/data/termos/" + fileName;
         }
 
     }

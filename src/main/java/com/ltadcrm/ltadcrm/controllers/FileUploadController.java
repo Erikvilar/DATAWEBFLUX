@@ -41,25 +41,25 @@ public class FileUploadController {
      
         var receiving = itemsRepository.findBynumber(codigo.get(0)).get();
         Receiving receivingSaved = receivingRepository.findById(receiving.getReceiving().getReceivingID()).get();
-        receivingSaved.setPdfOrder(fileStorage.saveFile(pedido, "pedidos"));
-        receivingSaved.setPdfTerm(fileStorage.saveFile(termo, "termos"));
+        receivingSaved.setPdfOrder(fileStorage.saveFile(pedido, "pedidos",receiving.getReceiving().getReceivingCode().toString()));
+        receivingSaved.setPdfTerm(fileStorage.saveFile(termo, "termos",receiving.getReceiving().getReceivingCode().toString()));
         receivingRepository.save(receivingSaved);
 
         int totalPares = Math.min(codigo.size(), files.size() / 2);
         for (int i = 0; i < totalPares; i++) {
             int index1 = i * 2;
             int index2 = i * 2 + 1;
-
+            var items = itemsRepository.findBynumber(codigo.get(i)).get();
             List<String> imagePair = new ArrayList<>();
             imagePair.clear();
             System.out.println("teste");
             if (index1 < files.size()) {
-                imagePair.add(fileStorage.saveFile(files.get(index1), "patrimonios"));
+                imagePair.add(fileStorage.saveFile(files.get(index1), "patrimonios",items.getNumber()));
             }
             if (index2 < files.size()) {
-                imagePair.add(fileStorage.saveFile(files.get(index2), "patrimonios"));
+                imagePair.add(fileStorage.saveFile(files.get(index2), "patrimonios", items.getNumber()));
             }
-            var items = itemsRepository.findBynumber(codigo.get(i)).get();
+           
             items.setPathImage(imagePair);
             itemsRepository.save(items);
 

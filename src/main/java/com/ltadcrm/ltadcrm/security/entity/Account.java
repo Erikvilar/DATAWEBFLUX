@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +32,9 @@ public class Account implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-
+    @Size(min = 5, message = "O nome do usuário deve conter pelo menos 6 caracteres.")
     private String login;
-
+    @Size(min = 5, message = "A password deve conter pelo menos 5 caracteres.")
     private String password;
 
     private String avatar;

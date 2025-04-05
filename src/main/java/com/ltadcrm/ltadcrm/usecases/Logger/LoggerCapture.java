@@ -2,6 +2,7 @@ package com.ltadcrm.ltadcrm.usecases.Logger;
 
 import java.util.Objects;
 
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 
@@ -30,15 +31,15 @@ public class LoggerCapture {
         Long entityId = newValues.getId();
         String entityName = newValues.getClass().getSimpleName();
 
-        compare(code, entityName, "Observation", oldValues.getObservation(), newValues.getObservation(),  entityId, type, userLog);
+        compare(code, entityName, "Observação", oldValues.getObservation(), newValues.getObservation(),  entityId, type, userLog);
         compare(code, entityName, "SDE", oldValues.getSde().toString(), newValues.getSde().toString(),  entityId, type, userLog);
-        compare(code, entityName, "Process SEI", oldValues.getProcessSEI(), newValues.getProcessSEI(),  entityId, type, userLog);
-        compare(code, entityName, "Order Origin", oldValues.getOrder(), newValues.getOrder(),  entityId, type, userLog);
+        compare(code, entityName, "Processo SEI", oldValues.getProcessSEI(), newValues.getProcessSEI(),  entityId, type, userLog);
+        compare(code, entityName, "Pedido de origem", oldValues.getOrder(), newValues.getOrder(),  entityId, type, userLog);
         compare(code, entityName, "Status", oldValues.getStatus(), newValues.getStatus(),  entityId, type, userLog);
-        compare(code, entityName, "Situation Register", oldValues.getSituationRegister(),
+        compare(code, entityName, "Situação de registro", oldValues.getSituationRegister(),
                 newValues.getSituationRegister(),  entityId, type, userLog);
         compare(code, entityName, "NF Invoice", oldValues.getNfInvoice(), newValues.getNfInvoice(),  entityId, type, userLog);
-        compare(code, entityName, "Value", oldValues.getValue().toString(), newValues.getValue().toString(), entityId,type,
+        compare(code, entityName, "Valor do item", oldValues.getValue().toString(), newValues.getValue().toString(), entityId,type,
                 userLog);
 
     }
@@ -51,23 +52,30 @@ public class LoggerCapture {
 
         String entityName = newValues.getClass().getSimpleName();
 
-        compare(code, entityName, "Model", oldValues.getModel(), newValues.getModel(),  entityId, type, userLog);
-        compare(code, entityName, "Brand", oldValues.getBrand(), newValues.getBrand(),  entityId, type, userLog);
+        compare(code, entityName, "Modelo", oldValues.getModel(), newValues.getModel(),  entityId, type, userLog);
+        compare(code, entityName, "Marca", oldValues.getBrand(), newValues.getBrand(),  entityId, type, userLog);
         compare(code, entityName, "Serial", oldValues.getSerial(), newValues.getSerial(),  entityId, type, userLog);
-        compare(code, entityName, "Description", oldValues.getDescription(), newValues.getDescription(),  entityId, type, userLog);
+        compare(code, entityName, "Descrição", oldValues.getDescription(), newValues.getDescription(),  entityId, type, userLog);
         compare(code, entityName, "Local", oldValues.getLocal(), newValues.getLocal(),  entityId, type, userLog);
     }
 
-    public void captureUsers(Users newValues, Users oldValues) {
+    public void captureUsers(String code, Users newValues, Users oldValues, String type, String userLog) {
         if (newValues == null || oldValues == null) {
             return; // Evita erro caso algum objeto seja nulo
         }
+        Long entityId = newValues.getUserID();
+        String entityName = newValues.getClass().getSimpleName();
+        compare(code, entityName, "Nome do imediato", oldValues.getUserName(), newValues.getUserName(),  entityId, type, userLog);
+        
     }
 
-    public void captureCostCenter(CostCenter newValues, CostCenter oldValues) {
+    public void captureCostCenter(String code, CostCenter newValues, CostCenter oldValues, String type, String userLog) {
         if (newValues == null || oldValues == null) {
             return; // Evita erro caso algum objeto seja nulo
         }
+        Long entityId = newValues.getId();
+        String entityName = newValues.getClass().getSimpleName();
+        compare(code, entityName, "sigla", oldValues.getName(), newValues.getName(),  entityId, type, userLog);
     }
 
   

@@ -1,5 +1,7 @@
 package com.ltadcrm.ltadcrm.security.service;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -32,7 +34,7 @@ public class SecurityServiceControll {
             System.out.println(account.getIsLogged());
             if (account.getIsLogged()) {
                 account.setIsLogged(false);
-                throw new Exception("Usuário ja esta logado");
+                throw new IllegalAccessError("Usuário ja esta logado");
             }
 
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());

@@ -135,6 +135,8 @@ public class ItemDetailDTO {
     private String pdfTerm;
     @JsonProperty("pedidoPDF")
     private String pdfOrder;
+    @JsonProperty("pedido")
+    private String orderCode;
     @JsonProperty("empSIAFI")
     private String empSiafi;
 
@@ -200,6 +202,7 @@ public class ItemDetailDTO {
                 receivingDTO.getEmail(),
                 receivingDTO.getPdfTerm(),
                 receivingDTO.getPdfOrder(),
+                receivingDTO.getOrderCode(),
                 receivingDTO.getEmpSIAFI(),
                 itemsDTO.getUpdateIn());
     }

@@ -29,11 +29,21 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<ToFrontDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
-        return new ResponseEntity<>(security.loginMethod(data), HttpStatus.ACCEPTED);
+        try{
+            return new ResponseEntity<>(security.loginMethod(data), HttpStatus.ACCEPTED); 
+      
+        }catch(IllegalAccessError e){
+            return ResponseEntity.status(409).build();
+        }
+       
     }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO register) throws Exception {
+        if(register.password().length() < 5 || register.login().length() < 5 ){
+            ResponseEntity.badRequest().body("A password e o login deve conter pelo menos 6 caracteres.");
+            throw new Exception("Usuario tentou fazer registro de novo usuario invalido, com menos de 6 caracters.");
+        }
         return new ResponseEntity<>(security.registerMethod(register), HttpStatus.ACCEPTED);
 
     }

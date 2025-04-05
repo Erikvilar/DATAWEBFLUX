@@ -25,6 +25,8 @@ public class ReceivingDTO {
     private String pdfTerm;
     @JsonProperty("pedidoPDF")
     private String pdfOrder;
+    @JsonProperty("pedido")
+    private String orderCode;
     @JsonProperty("empSIAFI")
     private String empSIAFI;
     
