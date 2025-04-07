@@ -1,7 +1,8 @@
 package com.ltadcrm.ltadcrm.security.service;
 
-import org.apache.catalina.connector.Response;
-import org.springframework.http.ResponseEntity;
+import java.util.Optional;
+
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -30,10 +31,18 @@ public class SecurityServiceControll {
 
     public ToFrontDTO loginMethod(AuthenticationDTO data) throws Exception {
         try {
-            Account account = accountRepository.findAccountByLogin(data.login());
-            System.out.println(account.getIsLogged());
-            if (account.getIsLogged()) {
-                account.setIsLogged(false);
+            Optional<Account> account = accountRepository.findAccountByLogin(data.login());
+            Account accountEntity = account.get();
+            Boolean encryptedPassword = new BCryptPasswordEncoder().matches(data.password(),
+                    accountEntity.getPassword());
+
+            if (!encryptedPassword || !account.isPresent()) {
+                log.info("{} || {} ", accountEntity.getUsername(), data.login());
+                log.info("{} || {} ", accountEntity.getPassword(), encryptedPassword);
+                throw new IllegalAccessError("Login ou senha incorretos");
+
+            } else if (accountEntity.getIsLogged()) {
+                accountEntity.setIsLogged(false);
                 throw new IllegalAccessError("Usuário ja esta logado");
             }
 
@@ -41,13 +50,14 @@ public class SecurityServiceControll {
             var auth = authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generatedToken((Account) auth.getPrincipal());
 
-            account.setIsLogged(true);
-            Account accountLogged = accountRepository.save(account);
+            accountEntity.setIsLogged(true);
+            Account accountLogged = accountRepository.save(accountEntity);
             var userLogged = new ToFrontDTO(accountLogged.getAvatar(), accountLogged.getLogin(), token,
                     accountLogged.getRole().toString(), accountLogged.getIsLogged());
             log.info("Usuario {} fez login no sistema ", data.login());
 
             return userLogged;
+
         } catch (Exception e) {
             throw new IllegalAccessError("Ocorreu um erro ao realizar login do usuario " + e);
         }
@@ -75,10 +85,10 @@ public class SecurityServiceControll {
     }
 
     public LogoutDTO logoutMethod(LogoutDTO logout) throws Exception {
-        Account account = accountRepository.findAccountByLogin(logout.login());
-
-        account.setIsLogged(false);
-        Account accountLogout = accountRepository.save(account);
+        Optional<Account> account = accountRepository.findAccountByLogin(logout.login());
+        Account accountEntity = account.get();
+        accountEntity.setIsLogged(false);
+        Account accountLogout = accountRepository.save(accountEntity);
 
         return new LogoutDTO(accountLogout.getLogin(), accountLogout.getIsLogged());
     }

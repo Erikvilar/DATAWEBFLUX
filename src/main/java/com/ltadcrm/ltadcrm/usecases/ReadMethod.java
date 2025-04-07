@@ -53,10 +53,6 @@ public class ReadMethod {
     public List<ItemDetailDTO> list() throws Exception {
         try {
             List<Receiving> receivings = receivingRepository.findAll();
-            if (receivings.isEmpty()) {
-                System.out.println("Nenhum receiving encontrado");
-            }
-
             return receivings.stream()
                     .flatMap(receiving -> {
 

@@ -41,8 +41,8 @@ public class FileUploadController {
      
         var receiving = itemsRepository.findBynumber(codigo.get(0)).get();
         Receiving receivingSaved = receivingRepository.findById(receiving.getReceiving().getReceivingID()).get();
-        receivingSaved.setPdfOrder(fileStorage.saveFile(pedido, "pedidos",receiving.getReceiving().getReceivingCode().toString()));
-        receivingSaved.setPdfTerm(fileStorage.saveFile(termo, "termos",receiving.getReceiving().getReceivingCode().toString()));
+        receivingSaved.setPdfOrder(fileStorage.saveFile(pedido, "pedidos",receiving.getReceiving().getReceivingCode().toString()+"Pedido"));
+        receivingSaved.setPdfTerm(fileStorage.saveFile(termo, "termos",receiving.getReceiving().getOrderCode().toString()+"Termo"));
         receivingRepository.save(receivingSaved);
 
         int totalPares = Math.min(codigo.size(), files.size() / 2);
@@ -54,10 +54,10 @@ public class FileUploadController {
             imagePair.clear();
             System.out.println("teste");
             if (index1 < files.size()) {
-                imagePair.add(fileStorage.saveFile(files.get(index1), "patrimonios",items.getNumber()));
+                imagePair.add(fileStorage.saveFile(files.get(index1), "patrimonios",items.getNumber()+"ImagemTotal"));
             }
             if (index2 < files.size()) {
-                imagePair.add(fileStorage.saveFile(files.get(index2), "patrimonios", items.getNumber()));
+                imagePair.add(fileStorage.saveFile(files.get(index2), "patrimonios", items.getNumber()+"ImagemTAG"));
             }
            
             items.setPathImage(imagePair);

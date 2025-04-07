@@ -90,7 +90,7 @@ public class CreateListItems {
                 items.setDetails(detailsRepository.save(details));
 
                 items.setReceiving(receivingSave);
-                logger.save( new AuditLog(null, items.getNumber(),"",0L, "","",items.getDetails().getDescription(),"create",dto.getLogUser(), LocalDateTime.now()));
+                logger.save(new AuditLog(null, items.getNumber(),"",0L, "","",items.getDetails().getDescription(),"create",dto.getLogUser(), LocalDateTime.now()));
                 return itemsRepository.save(items);
             }).toList();
 

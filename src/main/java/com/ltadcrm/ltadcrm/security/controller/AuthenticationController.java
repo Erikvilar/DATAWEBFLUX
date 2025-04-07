@@ -31,8 +31,10 @@ public class AuthenticationController {
     public ResponseEntity<ToFrontDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
         try{
             return new ResponseEntity<>(security.loginMethod(data), HttpStatus.ACCEPTED); 
-      
         }catch(IllegalAccessError e){
+            if(e.getMessage().equals("Login ou senha incorretos")){
+                return ResponseEntity.status(401).build();
+            }
             return ResponseEntity.status(409).build();
         }
        
