@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("teste")
 @RequiredArgsConstructor
 public class TesteController {
-    @Value("${upload.dir:C:/nginx/images}") // Pode ser configurado no application.properties
+    @Value("${upload.dir:C:/nginx/images}")
     private String uploadDir;
     private final TesteRepository repository;
 
