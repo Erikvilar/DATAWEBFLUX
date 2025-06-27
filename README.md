@@ -21,7 +21,7 @@
 
 
 Este projeto tem como objetivo oferecer uma repleta gama de funcionalidades de serviços para o
-[Dashboard view no front-end](https://github.com/Erikvilar/DASHBOARD-CRM), etse serviço possui relacionamentos complexos e completos oferecendo uma forma normalizada e acessivel de cadastro leitura removação e atualização de dados, implementado diretamente para fornecer eficiencia e ágilidade onde seu foco está no desempenho e segurança entre single-transaction || multi-transactions, ainda esta API ainda está sendo documentada e melhorada.
+[Dashboard view no front-end](https://github.com/Erikvilar/DASHBOARD-CRM), etse serviço possui relacionamentos complexos e completos oferecendo uma forma normalizada e acessivel de cadastro leitura remoção e atualização de dados, implementado diretamente para fornecer eficiencia e ágilidade onde seu foco está no desempenho e segurança entre single-transaction || multi-transactions, ainda esta API ainda está sendo documentada e melhorada.
 
 ## 🚀 Tecnologias Utilizadas
 
